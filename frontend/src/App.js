@@ -1,28 +1,58 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Logo from './components/Logo'
+import PuzzleWindow from './components/PuzzleWindow'
+import CommentsContainer from './components/CommentsContainer'
+
+const API = 'http://localhost:3000'
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+
+    state = {
+        comments: []
+    }
+    
+    componentDidMount() {
+            this.getPuzzleWindowCoordinates(MouseEvent);
+            this.fetchComments();
+        }
+        
+    getPuzzleWindowCoordinates = (MouseEvent) => {
+    const puzzleWindow = document.querySelector('.puzzle-container')
+    const window = puzzleWindow.getBoundingClientRect();
+    const x = window.left;
+    const y = window.top;
+    console.log("x: " + x + ", y: " + y );
+    const mouseX = MouseEvent.clientX
+    const mouseY = MouseEvent.clientY
+    console.log("mouse x: " + mouseX + ", mouse y: " + mouseY)
+
+    const absoluteX = mouseX - x
+    const absoluteY = mouseY - y
+
+    console.log(absoluteX)
+    console.log(absoluteY)
+    }
+
+    fetchComments = () => {
+        fetch(API+'/comments')
+            .then(resp => resp.json())
+            .then(data => this.setState({ comments: data }))
+        }
+        
+
+    
+
+    render() {
+        return (
+            <div className="app">
+                <Logo />
+                <PuzzleWindow getPuzzleWindowCoordinates={this.getPuzzleWindowCoordinates}/>
+                <CommentsContainer comments={this.state.comments}/>
+            </div>
+        );
+    }
 }
 
 export default App;

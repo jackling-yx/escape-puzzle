@@ -1,0 +1,12 @@
+
+.puzzle-image {
+  height: 720px;
+  width: auto;
+}
+.puzzle-container {
+  display: flex;
+  justify-content: center;
+  height: 720px;
+  width: 1280px;
+  /* box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5); */
+}

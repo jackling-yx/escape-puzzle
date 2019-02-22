@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+c1 = Comment.create(name: 'Toast', message: 'Last point was so hard to find!')
+c2 = Comment.create(name: 'CoderInHoods', message: 'EZ!')
+c3 = Comment.create(name: 'Serena', message: 'Dis gaem sux')
+c4 = Comment.create(name: 'Ja9', message: '^Be nice!')
