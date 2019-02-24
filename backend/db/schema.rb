@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2019_02_21_110450) do
     t.float "xcoordinate"
     t.float "ycoordinate"
     t.string "text"
+    t.integer "puzzle_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

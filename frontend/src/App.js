@@ -10,12 +10,16 @@ const API = 'http://localhost:3000'
 class App extends Component {
 
     state = {
-        comments: []
+        comments: [],
+        puzzles: [],
+        selectedPuzzle: null
     }
     
     componentDidMount() {
-            this.getPuzzleWindowCoordinates(MouseEvent);
+            // this.isMouseWithinPoint(MouseEvent);
             this.fetchComments();
+            this.fetchPuzzles(1);
+            // this.selectPuzzleLevel(1);
         }
         
     getPuzzleWindowCoordinates = (MouseEvent) => {
@@ -23,32 +27,58 @@ class App extends Component {
     const window = puzzleWindow.getBoundingClientRect();
     const x = window.left;
     const y = window.top;
-    console.log("x: " + x + ", y: " + y );
+    // console.log("x: " + x + ", y: " + y );
     const mouseX = MouseEvent.clientX
     const mouseY = MouseEvent.clientY
-    console.log("mouse x: " + mouseX + ", mouse y: " + mouseY)
+    // console.log("mouse x: " + mouseX + ", mouse y: " + mouseY)
 
     const absoluteX = mouseX - x
     const absoluteY = mouseY - y
 
-    console.log(absoluteX)
-    console.log(absoluteY)
+    return [absoluteX, absoluteY]
     }
 
-    fetchComments = () => {
-        fetch(API+'/comments')
+    fetchComments = async () => {
+        await fetch(API+'/comments')
             .then(resp => resp.json())
             .then(data => this.setState({ comments: data }))
         }
         
-
+    fetchPuzzles = async (value) => {
+        await fetch(API+'/puzzles')
+            .then(resp => resp.json())
+            .then(data => this.setState({puzzles: data}))
+            .then(() => {
+                const foundPuzzle = this.state.puzzles.find(puzzle => puzzle.id === value)
+                this.setState({ selectedPuzzle: foundPuzzle })
+            })
+            
+    }
     
+    selectPuzzleLevel = (value) => {
+        const foundPuzzle = this.state.puzzles.map(puzzle => puzzle.id === value)
+        this.setState({selectedPuzzle: foundPuzzle})
+    } 
+
+    isMouseWithinPoint = (MouseEvent) => {
+        const coords = this.getPuzzleWindowCoordinates(MouseEvent);
+        const puzzle = {...this.state.selectPuzzleLevel}
+
+        const checkX = 'hello'
+
+        if (!puzzle) {
+            console.log(checkX)
+        }
+
+        console.log('absX: ' + coords[0])
+        console.log('absY: ' + coords[1])
+    }
 
     render() {
         return (
             <div className="app">
                 <Logo />
-                <PuzzleWindow getPuzzleWindowCoordinates={this.getPuzzleWindowCoordinates}/>
+                <PuzzleWindow isMouseWithinPoint={this.isMouseWithinPoint} puzzles={this.state.puzzles} selectedPuzzle={this.state.selectedPuzzle}/>
                 <CommentsContainer comments={this.state.comments}/>
             </div>
         );

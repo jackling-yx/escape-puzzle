@@ -5,8 +5,10 @@
     align-items: center;
     background-image: url('/background.jpg');
     background-position: center;
+    background-attachment: fixed;
     background-repeat: no-repeat;
     background-color: black;
+    background-size: cover;
     overflow: scroll;
     height: auto;
 }

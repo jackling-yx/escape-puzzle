@@ -8,7 +8,7 @@ class CommentsContainer extends Component {
             <div className="comments-container">
                 <p>Comments (No spoilers!): </p>
                 {this.props.comments.map( comment => 
-                    <li><Comment comment={comment} /></li>
+                    <li key={comment.id}><Comment comment={comment} /></li>
                 )}
             </div>
         )
