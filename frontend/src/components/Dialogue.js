@@ -3,10 +3,9 @@ import '../css/Dialogue.css';
 
 
 const Dialogue = (props) => {
+    console.log(props.text)
     return (
-        <div className="dialogue-container">
-            
-        </div>
+        <p className="dialogue">{props.text}</p>
     )
 }
 

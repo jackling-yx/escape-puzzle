@@ -1,0 +1,14 @@
+.dialogue {
+    background: rgba(0,0,0,0.5);
+    font-size: 1.25em;
+    color: white;
+    width: 50%;
+    height: 100px;
+    margin: 15px 15px 15px 15px;
+    padding: 10px 30px 10px 30px;
+    text-align: left;
+    border-style: solid;
+    border-color: grey;
+    border-radius: 25px;
+    margin-bottom: 75px;
+}

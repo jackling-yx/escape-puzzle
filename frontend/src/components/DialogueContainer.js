@@ -10,7 +10,7 @@ class DialogueContainer extends Component {
     render() {
         return (
             <div className="dialogue-container">
-                <Dialogue />
+                <Dialogue text={this.props.text}/>
             </div>
         )
     }
