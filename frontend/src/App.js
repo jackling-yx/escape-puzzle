@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Logo from './components/Logo'
-import PuzzleWindow from './components/PuzzleWindow'
+import PuzzleContainer from './components/PuzzleContainer'
 import CommentsContainer from './components/CommentsContainer'
 
 const API = 'http://localhost:3000'
@@ -74,12 +74,20 @@ class App extends Component {
         console.log('absY: ' + coords[1])
     }
 
+    updateComments = (commentObj) => {
+        const commentsArray = [...this.state.comments]
+        commentsArray.push(commentObj)
+        this.setState({
+            comments: commentsArray
+        })
+    }
+
     render() {
         return (
             <div className="app">
                 <Logo />
-                <PuzzleWindow isMouseWithinPoint={this.isMouseWithinPoint} puzzles={this.state.puzzles} selectedPuzzle={this.state.selectedPuzzle}/>
-                <CommentsContainer comments={this.state.comments}/>
+                <PuzzleContainer isMouseWithinPoint={this.isMouseWithinPoint} puzzles={this.state.puzzles} selectedPuzzle={this.state.selectedPuzzle} getPuzzleWindowCoordinates={this.getPuzzleWindowCoordinates}/>
+                <CommentsContainer comments={this.state.comments} updateComments={this.updateComments}/>
             </div>
         );
     }
