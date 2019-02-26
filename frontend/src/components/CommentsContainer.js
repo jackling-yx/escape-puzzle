@@ -9,7 +9,8 @@ class CommentsContainer extends Component {
 
     state = {
         name: null,
-        message: null
+        message: null,
+        reverse_date: false,
     }
 
     handleChange = (event) => {
@@ -33,13 +34,22 @@ class CommentsContainer extends Component {
         }).then(() => {this.props.updateComments(payload)})
     }
 
+    handleSortToggle = () => {
+        this.setState({
+            reverse_date: !this.state.reverse_date
+        })
+    }
+
 
     render() {
         return (
             <div className="comments-container">
                 <Form handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
-                <p>Comments (No spoilers!): </p>
-                {this.props.comments.map( comment => 
+                <p>Comments (No spoilers!): </p> <button className="filter-toggle" onClick={this.handleSortToggle}>Old / New First</button>
+               
+                {this.state.reverse_date ? [...this.props.comments].map( comment => 
+                    <li key={comment.id}><Comment comment={comment} /></li>
+                ).reverse() : this.props.comments.map(comment =>
                     <li key={comment.id}><Comment comment={comment} /></li>
                 )}
             </div>

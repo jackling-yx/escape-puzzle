@@ -1,25 +1,47 @@
 import React, { Component } from 'react';
 import '../css/PuzzleContainer.css';
 import DialogueContainer from './DialogueContainer';
+import SolutionContainer from './SolutionContainer';
 
 class PuzzleContainer extends Component {
 
   state = {
     found: false,
-    text: ""
+    text: "",
+    answer_box: false,
+    answer_text: "",
+    solution_found: false
   }
 
   displayMessage = (id) => {
     const puzzle = { ...this.props.selectedPuzzle }
     const foundPoint = puzzle.points.find(point => point.id == id)
-    
-    this.setState({
-      found: true,
-      text: foundPoint.text
-    })
-    // alert(foundPoint.text)
-  }
+  
+    if (foundPoint.id == this.props.selectedPuzzle.points.length) {
+      this.setState({
+        found: false,
+        answer_box: true,
+        text: foundPoint.text
+      })
+    }
+    else {
+      this.setState({
+        found: true,
+        answer_box: false,
+        text: foundPoint.text
+      })
+    }
 
+  }
+  
+  hideDialogue = (event) => {
+    event.stopPropagation()
+    this.setState({
+      found: false,
+      answer_box: false
+    })
+  }
+  
   checkCoordinates = (MouseEvent) => {
     const coords = this.props.getPuzzleWindowCoordinates(MouseEvent);
     const puzzle = { ...this.props.selectedPuzzle }
@@ -29,7 +51,7 @@ class PuzzleContainer extends Component {
         const box = point.box
         if ((box[0][0] <= coords[0] && coords[0] <= box[1][0]) && (box[0][1] <= coords[1] && coords[1] <= box[1][1])) {
           
-          this.setState({ found: true })
+          // this.setState({ found: true })
           this.displayMessage(point.id)
         }
       })
@@ -39,8 +61,23 @@ class PuzzleContainer extends Component {
       console.log('absY: ' + coords[1])
   }
 
-  hideDialogue = () => {
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value })
+  }
 
+  handleKeypress = (event) => {
+    event.preventDefault();
+    // if (event.key === 'Enter') {
+    //   console.log(event.key)
+    // }
+    // else {
+    //   console.log(event.key)
+    // }
+  }
+
+  handleSubmitAnswer = (event) => {
+    event.preventDefault()
+    console.log(this.state.answer_text == this.props.selectedPuzzle.answer)
   }
 
     render() {
@@ -53,7 +90,10 @@ class PuzzleContainer extends Component {
           </div>
 
         { (this.state.found === true) && 
-          <DialogueContainer text={this.state.text} found={this.state.found}/>
+          <DialogueContainer text={this.state.text} found={this.state.found} hideDialogue={this.hideDialogue}/>
+        }
+        { (this.state.answer_box == true) &&
+            <SolutionContainer text={this.state.text} found={this.state.found} answer={this.state.answer_text} handleChange={this.handleChange} handleSubmitAnswer={this.handleSubmitAnswer}/>
         }
 
           <img className="puzzle-image" src={this.props.selectedPuzzle && this.props.selectedPuzzle.image_url}></img>

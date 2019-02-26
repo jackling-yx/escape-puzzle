@@ -9,7 +9,7 @@ class DialogueContainer extends Component {
 
     render() {
         return (
-            <div className="dialogue-container">
+            <div className="dialogue-container" onClick={this.props.hideDialogue}>
                 <Dialogue text={this.props.text}/>
             </div>
         )

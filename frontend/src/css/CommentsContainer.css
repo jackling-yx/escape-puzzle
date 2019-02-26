@@ -16,3 +16,20 @@
 li {
     list-style: none;
 }
+
+.filter-toggle {
+    display:flex;
+    justify-content: flex-end;
+    font-size: 0.7em;
+    padding: 0;
+    padding-bottom: 10px;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+    border: none;
+    width: auto;
+}
+
+.filter-toggle:focus {
+    outline: none;
+}

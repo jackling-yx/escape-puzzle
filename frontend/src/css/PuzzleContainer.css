@@ -7,6 +7,7 @@
 .puzzle-container {
   display: flex;
   justify-content: center;
+  position: relative;
   height: 720px;
   width: 1280px;
   border-radius: 25px;

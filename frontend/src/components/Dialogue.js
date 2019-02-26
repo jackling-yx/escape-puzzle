@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import '../css/Dialogue.css';
 
+class Dialogue extends Component {
+    componentDidMount() {
+        const dialogue = document.querySelector('.dialogue');
+            this.props.text.split('').map((char, index) => {
+            setTimeout(() => {
+                dialogue.innerHTML += char
+            }, index * 50)
+        })
+    }
 
-const Dialogue = (props) => {
-    console.log(props.text)
-    return (
-        <p className="dialogue">{props.text}</p>
-    )
+    render() {
+            console.log(this.props.text)
+        return (
+         <p className="dialogue"></p>
+        )
+    }
 }
 
 export default Dialogue
