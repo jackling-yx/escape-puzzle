@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../css/PuzzleContainer.css';
 import DialogueContainer from './DialogueContainer';
 import SolutionContainer from './SolutionContainer';
+import IntroDialogue from './IntroDialogue';
 
 class PuzzleContainer extends Component {
 
@@ -10,7 +11,7 @@ class PuzzleContainer extends Component {
     text: "",
     answer_box: false,
     answer_text: "",
-    solution_found: false
+    play_intro_dialogue: true
   }
 
   displayMessage = (id) => {
@@ -38,7 +39,8 @@ class PuzzleContainer extends Component {
     event.stopPropagation()
     this.setState({
       found: false,
-      answer_box: false
+      answer_box: false,
+      play_intro_dialogue: false
     })
   }
   
@@ -78,17 +80,21 @@ class PuzzleContainer extends Component {
   handleSubmitAnswer = (event) => {
     event.preventDefault()
     console.log(this.state.answer_text == this.props.selectedPuzzle.answer)
+
+    if (this.state.answer_text == this.props.selectedPuzzle.answer) {
+      this.props.toggleSolutionFound()
+    }
   }
 
     render() {
       
       return (
-
         <div className="puzzle-container" onClick={this.checkCoordinates}>
           <div className="hud">
             <p>Difficulty: {this.props.selectedPuzzle && this.props.selectedPuzzle.difficulty}</p>
           </div>
-
+        { (this.state.play_intro_dialogue) && <IntroDialogue hideDialogue={this.hideDialogue}/>
+        }
         { (this.state.found === true) && 
           <DialogueContainer text={this.state.text} found={this.state.found} hideDialogue={this.hideDialogue}/>
         }
@@ -99,7 +105,7 @@ class PuzzleContainer extends Component {
           <img className="puzzle-image" src={this.props.selectedPuzzle && this.props.selectedPuzzle.image_url}></img>
 
         </div>
-      );
+      )
     }
   }
 

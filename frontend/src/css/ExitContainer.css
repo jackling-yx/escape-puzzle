@@ -1,0 +1,12 @@
+
+.exit-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  height: 720px;
+  width: 1280px;
+  border-radius: 25px;
+  box-shadow: 0px 0px 20px rgba(255,255,255,0.5);
+  background: url('/escaped.png');
+  background-size: 1280px 720px
+}

@@ -14,6 +14,11 @@ class PuzzlesController < ApplicationController
         end
     end
 
+    def show
+        @puzzle = Puzzle.find(params[:id])
+        render json: @puzzle
+    end
+    
     private
 
     def puzzle_params
