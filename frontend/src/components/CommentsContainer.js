@@ -3,7 +3,7 @@ import '../css/CommentsContainer.css';
 import Comment from './Comment'
 import Form from './Form'
 
-const API = 'http://localhost:3000'
+const API = window.origin
 
 class CommentsContainer extends Component {
 

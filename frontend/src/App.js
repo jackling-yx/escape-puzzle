@@ -8,7 +8,7 @@ import ExitContainer from './components/ExitContainer';
 import LevelCreationContainer from './components/LevelCreationContainer';
 import LevelCreationForm from './components/LevelCreationForm'
 
-const API = 'http://localhost:3000'
+const API = window.origin
 
 class App extends Component {
 
