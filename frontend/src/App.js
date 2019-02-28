@@ -121,13 +121,20 @@ class App extends Component {
         this.setState({ create_points })
     }
 
+    updateLevelImage = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+
     render() {
         return (
             <div className="app">
                 <Logo />
                 {this.state.create_level ? 
                 <div>
-                    <LevelCreationContainer addToPointsArray={this.addToPointsArray}/> 
+                        <input type='text' name='create_puzzle_image'  onChange={this.updateLevelImage}></input>
+                        <LevelCreationContainer addToPointsArray={this.addToPointsArray} create_puzzle_image={this.state.create_puzzle_image}/> 
                     <LevelCreationForm updatePoints={this.updatePoints} create_points={this.state.create_points} editPoints={this.editPoints}/> 
                 </div> : this.state.solution_found ? 
                     <ExitContainer selectedPuzzle={this.state.selectedPuzzle} toggleSolutionFound={this.toggleSolutionFound}/> : 

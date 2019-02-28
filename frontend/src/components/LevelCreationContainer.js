@@ -12,7 +12,7 @@ class LevelCreationContainer extends Component {
     render() {
         return (
             <div className="levelcreation-container" onClick={this.props.addToPointsArray}>
-                <img src={this.props.create_puzzle_image} alt="Enter your image level here"></img>
+                <img src={this.props.create_puzzle_image} className="puzzle-image" alt="Enter your image level here"></img>
 
             </div>
         )
