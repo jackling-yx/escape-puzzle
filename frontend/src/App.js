@@ -8,7 +8,7 @@ import ExitContainer from './components/ExitContainer';
 import LevelCreationContainer from './components/LevelCreationContainer';
 import LevelCreationForm from './components/LevelCreationForm'
 
-const API = window.origin
+const API = 'http://localhost:3000'
 
 class App extends Component {
 
@@ -19,7 +19,9 @@ class App extends Component {
         solution_found: false,
         create_level: false,
         create_points: [],
-        create_puzzle_image: ""
+        create_puzzle_image: "",
+        create_answer: "",
+        create_difficulty: ""
     }
     
     componentDidMount() {
@@ -65,6 +67,7 @@ class App extends Component {
             
     }
     
+    /* Methods for Gameplay */
     selectPuzzleLevel = (value) => {
         const foundPuzzle = this.state.puzzles.map(puzzle => puzzle.id === value)
         this.setState({selectedPuzzle: foundPuzzle})
@@ -98,6 +101,8 @@ class App extends Component {
         })
     }
 
+
+    /* Methods for creatin a level */
     toggleCreateLevel = () => {
         this.setState({
             create_level: !this.state.create_level
@@ -121,11 +126,26 @@ class App extends Component {
         this.setState({ create_points })
     }
 
-    updateLevelImage = (event) => {
+    updateLevelProperties = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         })
     }
+
+    submitToCreateLevel = async (event) => {
+        const payload = {
+            create_points: this.state.create_points,
+            image_url: '',
+            difficulty: '',
+            answer: this.state.create_answer,
+        }
+        event.preventDefault();
+        await fetch(API + '/puzzles', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        }).then(() => { this.props.updateComments(payload) })
+    } 
 
     render() {
         return (
@@ -133,8 +153,13 @@ class App extends Component {
                 <Logo />
                 {this.state.create_level ? 
                 <div>
-                        <input type='text' name='create_puzzle_image'  onChange={this.updateLevelImage}></input>
-                        <LevelCreationContainer addToPointsArray={this.addToPointsArray} create_puzzle_image={this.state.create_puzzle_image}/> 
+                    <div className="create-puzzle-form-container">
+                        <input type='text' className="create-puzzle-props" name='create_puzzle_image' placeholder="Image url here" onChange={this.updateLevelProperties}></input>
+                        <input type='text' className="create-puzzle-props" name='create_answer' placeholder="Enter your answer here"onChange={this.updateLevelProperties}></input>
+                        <input type='text' className="create-puzzle-props" name='create_difficulty' placeholder="Enter your difficulty here" onChange={this.updateLevelProperties}></input>
+                        <button onClick={this.submitToCreateLevel}>Submit!</button>
+                    </div>
+                    <LevelCreationContainer addToPointsArray={this.addToPointsArray} create_puzzle_image={this.state.create_puzzle_image}/> 
                     <LevelCreationForm updatePoints={this.updatePoints} create_points={this.state.create_points} editPoints={this.editPoints}/> 
                 </div> : this.state.solution_found ? 
                     <ExitContainer selectedPuzzle={this.state.selectedPuzzle} toggleSolutionFound={this.toggleSolutionFound}/> : 

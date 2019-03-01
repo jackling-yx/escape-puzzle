@@ -3,7 +3,7 @@ import '../css/CommentsContainer.css';
 import Comment from './Comment'
 import Form from './Form'
 
-const API = window.origin
+const API = 'http://localhost:3000'
 
 class CommentsContainer extends Component {
 
@@ -18,7 +18,6 @@ class CommentsContainer extends Component {
     }
 
     handleSubmit = async (event) => {
-        // alert('A name was submitted: ' + this.state.value);
         const payload = {name: this.state.name,
             message: this.state.message,
             created_at: 'Just now'

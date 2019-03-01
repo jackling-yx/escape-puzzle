@@ -8,6 +8,15 @@ class PuzzlesController < ApplicationController
         @puzzle = Puzzle.new(puzzle_params)
         if @puzzle.valid?
             @puzzle.save
+            id = @puzzle.id
+            # byebug
+            # redirect_to controller: 'points', action: :create, locals: { puzzle_id: id}
+            # p = PointsController.new
+            # p.request = request
+            # p.response = response
+            # p.create
+            # redirect_to PointsController_create_url
+            render 'points/create'
         else
             puts "error"
             # render :new
@@ -22,6 +31,6 @@ class PuzzlesController < ApplicationController
     private
 
     def puzzle_params
-        params.require(:puzzle).permit(:xcoordinate, :ycoordinate, :message)
+        params.require(:puzzle).permit(:image_url, :difficulty, :answer)
     end
 end

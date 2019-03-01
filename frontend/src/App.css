@@ -12,3 +12,16 @@
     overflow: scroll;
     height: auto;
 }
+
+.create-puzzle-form-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.create-puzzle-props {
+    /* width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around; */
+}
