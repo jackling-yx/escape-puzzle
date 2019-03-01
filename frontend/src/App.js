@@ -135,8 +135,8 @@ class App extends Component {
     submitToCreateLevel = async (event) => {
         const payload = {
             create_points: this.state.create_points,
-            image_url: '',
-            difficulty: '',
+            image_url: this.state.create_puzzle_image,
+            difficulty: this.state.create_difficulty,
             answer: this.state.create_answer,
         }
         event.preventDefault();
@@ -144,7 +144,7 @@ class App extends Component {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
-        }).then(() => { this.props.updateComments(payload) })
+        })
     } 
 
     render() {

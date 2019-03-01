@@ -1,5 +1,7 @@
 class PuzzlesController < ApplicationController
-     def index
+        include PointsControllable
+ 
+    def index
         @puzzles = Puzzle.all
         render json: @puzzles
     end
@@ -9,6 +11,7 @@ class PuzzlesController < ApplicationController
         if @puzzle.valid?
             @puzzle.save
             id = @puzzle.id
+            add_point(id)
             # byebug
             # redirect_to controller: 'points', action: :create, locals: { puzzle_id: id}
             # p = PointsController.new
@@ -16,7 +19,7 @@ class PuzzlesController < ApplicationController
             # p.response = response
             # p.create
             # redirect_to PointsController_create_url
-            render 'points/create'
+            # render 'points/create'
         else
             puts "error"
             # render :new
