@@ -4,11 +4,6 @@ import LevelCreationForm from './LevelCreationForm'
 
 class LevelCreationContainer extends Component {
 
-    state = {
-        background_url: "",
-        points: ""
-    }
-
     render() {
         return (
             <div className="levelcreation-container" onClick={this.props.addToPointsArray}>

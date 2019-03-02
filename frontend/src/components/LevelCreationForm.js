@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../css/LevelCreation.css';
+import '../css/LevelCreationForm.css';
 
 
 // const LevelCreation = (props) => {
@@ -34,18 +34,23 @@ class LevelCreation extends Component {
                 return false
         }
     }
-
+    
     render(){
         return (
-            <form className="levelcreation-form" onSubmit={this.formSubmitHandler}>
+            <form className="levelcreation-form" onSubmit={this.props.submitToCreateLevel}>
+                <input required type='text' className="create-puzzle-props" name='create_puzzle_image' placeholder="Image url here" onChange={this.props.updateLevelProperties}></input>
+                <input required type='text' className="create-puzzle-props" name='create_answer' placeholder="Enter your answer here" onChange={this.props.updateLevelProperties}></input>
+                <input required type='text' className="create-puzzle-props" name='create_difficulty' placeholder="Enter your difficulty here" onChange={this.props.updateLevelProperties}></input>
+                
+
                 <h5>Positions: </h5>
                 {this.props.create_points.map((point, i) => <label className={`point-${i}`}>
-                    <input placeholder="x coordinate" name="x" className={"x"} value={point[0]} onChange={this.onChangeHandler}></input>
-                    <input placeholder="y coordinate" name="y" className={"y"} value={point[1]} onChange={this.onChangeHandler}></input>
-                    <input type="text" placeholder="Dialogue" name="text" className={"text"} value={point[2]} onChange={this.onChangeHandler}></input>
+                    <input required placeholder="x coordinate" name="x" className={"x"} value={point[0]} onChange={this.onChangeHandler}></input>
+                    <input required placeholder="y coordinate" name="y" className={"y"} value={point[1]} onChange={this.onChangeHandler}></input>
+                    <input required type="text" placeholder="Dialogue" name="text" className={"text"} value={point[2]} onChange={this.onChangeHandler}></input>
                 </label>
                 )}
-                
+                <input type="submit" value="submit!"></input>
             </form>
         )
     }

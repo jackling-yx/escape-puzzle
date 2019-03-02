@@ -48,7 +48,7 @@ class PuzzleContainer extends Component {
     const coords = this.props.getPuzzleWindowCoordinates(MouseEvent);
     const puzzle = { ...this.props.selectedPuzzle }
 
-      console.log(puzzle)
+      // console.log(puzzle)
       const boxArray = puzzle.points.forEach((point) => {
         const box = point.box
         if ((box[0][0] <= coords[0] && coords[0] <= box[1][0]) && (box[0][1] <= coords[1] && coords[1] <= box[1][1])) {

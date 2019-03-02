@@ -16,6 +16,7 @@ class App extends Component {
         comments: [],
         puzzles: [],
         selectedPuzzle: null,
+        selectedPuzzleId: '',
         solution_found: false,
         create_level: false,
         create_points: [],
@@ -44,8 +45,8 @@ class App extends Component {
         const mouseY = MouseEvent.clientY
         // console.log("mouse x: " + mouseX + ", mouse y: " + mouseY)
 
-        const absoluteX = mouseX - x
-        const absoluteY = mouseY - y
+        const absoluteX = Math.round(mouseX - x)
+        const absoluteY = Math.round(mouseY - y)
 
         return [absoluteX, absoluteY]
     }
@@ -69,7 +70,7 @@ class App extends Component {
     
     /* Methods for Gameplay */
     selectPuzzleLevel = (value) => {
-        const foundPuzzle = this.state.puzzles.map(puzzle => puzzle.id === value)
+        const foundPuzzle = this.state.puzzles.find(puzzle => puzzle.id === value)
         this.setState({selectedPuzzle: foundPuzzle})
     } 
 
@@ -102,7 +103,7 @@ class App extends Component {
     }
 
 
-    /* Methods for creatin a level */
+    /* Methods for creating a level */
     toggleCreateLevel = () => {
         this.setState({
             create_level: !this.state.create_level
@@ -145,7 +146,23 @@ class App extends Component {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         })
+        this.setState({
+            create_points: [],
+            create_puzzle_image: "",
+            difficulty: "",
+            answer: "",
+        })
     } 
+
+    /* Level Selector */
+    setLevel = (event) => {
+        event.preventDefault()
+        const selectedId = this.state.selectedPuzzleId
+        const foundPuzzle = this.state.puzzles.find(puzzle => puzzle.id === parseInt(selectedId))
+        debugger
+        this.setState({ selectedPuzzle: foundPuzzle })
+    } 
+
 
     render() {
         return (
@@ -153,19 +170,19 @@ class App extends Component {
                 <Logo />
                 {this.state.create_level ? 
                 <div>
-                    <div className="create-puzzle-form-container">
-                        <input type='text' className="create-puzzle-props" name='create_puzzle_image' placeholder="Image url here" onChange={this.updateLevelProperties}></input>
-                        <input type='text' className="create-puzzle-props" name='create_answer' placeholder="Enter your answer here"onChange={this.updateLevelProperties}></input>
-                        <input type='text' className="create-puzzle-props" name='create_difficulty' placeholder="Enter your difficulty here" onChange={this.updateLevelProperties}></input>
-                        <button onClick={this.submitToCreateLevel}>Submit!</button>
-                    </div>
                     <LevelCreationContainer addToPointsArray={this.addToPointsArray} create_puzzle_image={this.state.create_puzzle_image}/> 
-                    <LevelCreationForm updatePoints={this.updatePoints} create_points={this.state.create_points} editPoints={this.editPoints}/> 
+                    <LevelCreationForm updatePoints={this.updatePoints} create_points={this.state.create_points} updateLevelProperties={this.updateLevelProperties} submitToCreateLevel={this.submitToCreateLevel}/> 
                 </div> : this.state.solution_found ? 
                     <ExitContainer selectedPuzzle={this.state.selectedPuzzle} toggleSolutionFound={this.toggleSolutionFound}/> : 
                     <PuzzleContainer isMouseWithinPoint={this.isMouseWithinPoint} puzzles={this.state.puzzles} selectedPuzzle={this.state.selectedPuzzle} getPuzzleWindowCoordinates={this.getPuzzleWindowCoordinates} toggleSolutionFound={this.toggleSolutionFound}/>
                 }
-                <button onClick={this.toggleCreateLevel}>Create Level</button>
+                    <div className="create-level-toggle" onClick={this.toggleCreateLevel}>
+                        {!this.state.create_level ? "Create Level" : "Back"}
+                    </div>
+                    <form onSubmit={this.setLevel}>
+                        <input name="selectedPuzzleId" onChange={this.updateLevelProperties} placeholder="Select level here"></input>
+                        <input type="submit" value="Load Level"></input>
+                    </form>
                 <CommentsContainer comments={this.state.comments} updateComments={this.updateComments}/>
             </div>
         );

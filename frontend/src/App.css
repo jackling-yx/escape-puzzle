@@ -3,7 +3,7 @@
     flex-direction: column;
     /* justify-content: center; */
     align-items: center;
-    background-image: url('/background.jpg');
+    background-image: url('/csgo-background.jpg');
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -24,4 +24,22 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around; */
+}
+
+.create-level-toggle {
+    color: white;
+    align-items: center;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    border-color: grey;
+    border-radius: 10px;
+    z-index: 10;
+    color: white;
+    width: auto;
+    margin: 20px;
+    padding: 5px 10px 5px 10px;
+    /* padding-left: 10px;
+    padding-right: 10px; */
 }
