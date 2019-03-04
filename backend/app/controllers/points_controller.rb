@@ -8,20 +8,18 @@ class PointsController < ApplicationController
     end
 
     def create
-        
-
-        # byebug
-    #     point_from_editor.each do |array|
-    #         @point = Point.new(xcoordinate: array[0], ycoordinate: array[1], text: array[2])
-    #         @point.puzzle_id = id
-    #         if @point.valid?
-    #             @point.save
-    #         else
-    #             puts "error"
-    #             # render :new
-    #         end
-    #     end
-    #     return "YAY"
+        byebug
+        points_from_editor.each do |array|
+            @point = Point.new(xcoordinate: array[0], ycoordinate: array[1], text: array[2])
+            @point.puzzle_id = id
+            if @point.valid?
+                @point.save
+            else
+                puts "error"
+                # render :new
+            end
+        end
+        return "YAY"
 
     end
 
@@ -29,5 +27,9 @@ class PointsController < ApplicationController
 
     def point_params
         params.require(:point).permit(:xcoordinate, :ycoordinate, :text)
+    end
+
+    def points_from_editor
+        params.permit(:create_points)
     end
 end

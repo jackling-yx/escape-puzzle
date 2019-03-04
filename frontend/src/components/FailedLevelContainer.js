@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import '../css/ExitContainer.css';
+// import '../css/DialogueContainer.css'
 
-const text = 'Well done. You managed to get out of there in time!'
+const text = 'FOUND YOU... BETTER LUCK NEXT TIME...'
 
-class ExitContainer extends Component {
-
+class FailedLevelContainer extends Component {
+    
     componentDidMount() {
         const dialogue = document.querySelector('.dialogue');
         text.split('').map((char, index) => {
             setTimeout(() => {
                 dialogue.innerHTML += char
-            }, index * 50)
+            }, index * 200)
         })
     }
 
@@ -24,11 +25,9 @@ class ExitContainer extends Component {
                 <div className="dialogue-container" onClick={this.props.toggleSolutionFound}>
                     <p className="dialogue"></p>
                 </div>
-                
-
             </div>
         )
     }
 }
 
-export default ExitContainer
+export default FailedLevelContainer

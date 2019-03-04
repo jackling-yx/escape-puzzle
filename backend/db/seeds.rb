@@ -24,7 +24,7 @@ puzzle1 = Puzzle.create!(image_url: 'https://cdn1.epicgames.com/ue/product/Scree
  [xcoordinate: 257, ycoordinate: 541, text: "A bin.", puzzle_id: 1],
  [xcoordinate: 768, ycoordinate: 309, text: "A picture of a yatch...", puzzle_id: 1],
  [xcoordinate: 552, ycoordinate: 407, text: "A plant. Looks like it needs some watering.", puzzle_id: 1],
- [xcoordinate: 347, ycoordinate: 452, text: "A family of 4. Everyone but the dad has their faces scratched out.", puzzle_id: 1],
+ [xcoordinate: 347, ycoordinate: 452, text: "A family of 4. Everyone but the dad has their faces scratched out. Werido...", puzzle_id: 1],
  [xcoordinate: 131, ycoordinate: 534, text: "His briefcase is empty. How inconvenient...", puzzle_id: 1],
  [xcoordinate: 541, ycoordinate: 142, text: "The lights are off. I think I'll keep it that way...", puzzle_id: 1],
  [xcoordinate: 601, ycoordinate: 153, text: "The lights are off. I think I'll keep it that way...", puzzle_id: 1],

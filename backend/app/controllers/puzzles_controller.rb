@@ -13,7 +13,7 @@ class PuzzlesController < ApplicationController
             id = @puzzle.id
             add_point(id)
             # byebug
-            # redirect_to controller: 'points', action: :create, locals: { puzzle_id: id}
+            # return redirect_to controller: 'points', action: :create, locals: { puzzle_id: id}, status: 307
             # p = PointsController.new
             # p.request = request
             # p.response = response

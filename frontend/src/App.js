@@ -7,6 +7,7 @@ import CommentsContainer from './components/CommentsContainer'
 import ExitContainer from './components/ExitContainer';
 import LevelCreationContainer from './components/LevelCreationContainer';
 import LevelCreationForm from './components/LevelCreationForm'
+import FailedLevelContainer from './components/FailedLevelContainer';
 
 const API = 'http://localhost:3000'
 
@@ -22,13 +23,15 @@ class App extends Component {
         create_points: [],
         create_puzzle_image: "",
         create_answer: "",
-        create_difficulty: ""
+        create_difficulty: "",
+        time_left: 10
     }
     
     componentDidMount() {
             // this.isMouseWithinPoint(MouseEvent);
             this.fetchComments();
             this.fetchPuzzles(1);
+            this.setState({count: setInterval(this.outOfTime, 1000) })
             // this.selectPuzzleLevel(1);
         }
         
@@ -106,7 +109,8 @@ class App extends Component {
     /* Methods for creating a level */
     toggleCreateLevel = () => {
         this.setState({
-            create_level: !this.state.create_level
+            create_level: !this.state.create_level,
+            time_left: 300
         })
     }
 
@@ -145,7 +149,7 @@ class App extends Component {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
-        })
+        }).then(resp => resp.json()).then(data => console.log(data))
         this.setState({
             create_points: [],
             create_puzzle_image: "",
@@ -159,10 +163,37 @@ class App extends Component {
         event.preventDefault()
         const selectedId = this.state.selectedPuzzleId
         const foundPuzzle = this.state.puzzles.find(puzzle => puzzle.id === parseInt(selectedId))
+        const puzzleList = [...this.state.puzzles]
         debugger
-        this.setState({ selectedPuzzle: foundPuzzle })
+        this.setState({ 
+            selectedPuzzle: foundPuzzle,
+            time_left: 10
+         })
     } 
 
+    countDown = () => {
+        this.setState ({
+            time_left: this.state.time_left - 1
+        })
+    }
+
+    // const countDown = setInterval(() => {
+    //     this.setState({
+    //         time_left: this.state.time_left - 1
+    //         })
+    //     }, 1000)
+    // })
+
+    convertToTime = (time) => {
+        let minutes = Math.floor(time/60)
+        let seconds = time % 60
+        debugger
+        console.log(minutes + ':' + seconds)
+    }
+
+    outOfTime = () => {
+        this.state.time_left === 0 ? clearInterval(this.state.count) : this.countDown()
+    }
 
     render() {
         return (
@@ -172,9 +203,11 @@ class App extends Component {
                 <div>
                     <LevelCreationContainer addToPointsArray={this.addToPointsArray} create_puzzle_image={this.state.create_puzzle_image}/> 
                     <LevelCreationForm updatePoints={this.updatePoints} create_points={this.state.create_points} updateLevelProperties={this.updateLevelProperties} submitToCreateLevel={this.submitToCreateLevel}/> 
-                </div> : this.state.solution_found ? 
+                    </div> : (this.state.solution_found) ? 
                     <ExitContainer selectedPuzzle={this.state.selectedPuzzle} toggleSolutionFound={this.toggleSolutionFound}/> : 
-                    <PuzzleContainer isMouseWithinPoint={this.isMouseWithinPoint} puzzles={this.state.puzzles} selectedPuzzle={this.state.selectedPuzzle} getPuzzleWindowCoordinates={this.getPuzzleWindowCoordinates} toggleSolutionFound={this.toggleSolutionFound}/>
+                        (this.state.time_left <= 0) ? 
+                    <FailedLevelContainer selectedPuzzleImage={this.state.selectedPuzzle.image_url} selectedPuzzle={this.state.selectedPuzzle} toggleSolutionFound={this.toggleSolutionFound} /> : 
+                    <PuzzleContainer isMouseWithinPoint={this.isMouseWithinPoint} puzzles={this.state.puzzles} selectedPuzzle={this.state.selectedPuzzle} getPuzzleWindowCoordinates={this.getPuzzleWindowCoordinates} toggleSolutionFound={this.toggleSolutionFound} timeLeft={this.state.time_left}/>
                 }
                     <div className="create-level-toggle" onClick={this.toggleCreateLevel}>
                         {!this.state.create_level ? "Create Level" : "Back"}

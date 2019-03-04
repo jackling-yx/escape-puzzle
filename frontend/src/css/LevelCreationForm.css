@@ -14,3 +14,18 @@
     box-shadow: 0px 0px 20px rgba(255,255,255,0.5);
     transform: translate(10% 50%)
 }
+
+.x {
+    width: 15%;
+    margin: 5px 2.5px 5px 2.5px
+}
+
+.y { 
+    width: 15%;
+    margin: 5px 2.5px 5px 2.5px
+}
+
+.text {
+    width: 65%;
+    margin: 5px 2.5px 5px 2.5px
+}

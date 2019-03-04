@@ -86,11 +86,22 @@ class PuzzleContainer extends Component {
     }
   }
 
+  convertToTime = (time) => {
+    let minutes = Math.floor(time / 60)
+    let seconds = time % 60
+    console.log(minutes + ':' + seconds)
+    if (seconds < 10) {
+      return minutes + ':' + '0'+ seconds
+    }
+    return minutes + ':' + seconds
+  }
+
     render() {
       
       return (
         <div className="puzzle-container" onClick={this.checkCoordinates}>
           <div className="hud">
+          <p>Time left: {this.convertToTime(this.props.timeLeft)}</p>
             <p>Difficulty: {this.props.selectedPuzzle && this.props.selectedPuzzle.difficulty}</p>
           </div>
         { (this.state.play_intro_dialogue) && <IntroDialogue hideDialogue={this.hideDialogue}/>
@@ -98,7 +109,7 @@ class PuzzleContainer extends Component {
         { (this.state.found === true) && 
           <DialogueContainer text={this.state.text} found={this.state.found} hideDialogue={this.hideDialogue}/>
         }
-        { (this.state.answer_box == true) &&
+        { (this.state.answer_box === true) &&
             <SolutionContainer text={this.state.text} found={this.state.found} answer={this.state.answer_text} handleChange={this.handleChange} handleSubmitAnswer={this.handleSubmitAnswer}/>
         }
 
