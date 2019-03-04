@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import '../css/ExitContainer.css';
-// import '../css/DialogueContainer.css'
+// import '../css/ExitContainer.css';
+import '../css/FailedLevelContainer.css'
 
 const text = 'FOUND YOU... BETTER LUCK NEXT TIME...'
 
 class FailedLevelContainer extends Component {
     
     componentDidMount() {
-        const dialogue = document.querySelector('.dialogue');
+        const dialogue = document.querySelector('.failed-dialogue');
         text.split('').map((char, index) => {
             setTimeout(() => {
                 dialogue.innerHTML += char
@@ -19,11 +19,11 @@ class FailedLevelContainer extends Component {
         return (
             <div className="exit-container">
                 <div className="hud">
-                    <p>Difficulty: {this.props.selectedPuzzle && this.props.selectedPuzzle.difficulty}</p>
+                    <p>Level: {this.props.selectedPuzzle && this.props.selectedPuzzle.difficulty}</p>
                 </div>
 
                 <div className="dialogue-container" onClick={this.props.toggleSolutionFound}>
-                    <p className="dialogue"></p>
+                    <p className="failed-dialogue"></p>
                 </div>
             </div>
         )

@@ -11,7 +11,7 @@ class PointsController < ApplicationController
         byebug
         points_from_editor.each do |array|
             @point = Point.new(xcoordinate: array[0], ycoordinate: array[1], text: array[2])
-            @point.puzzle_id = id
+            @point.puzzle_id = params["locals"]["puzzle_id"]
             if @point.valid?
                 @point.save
             else
@@ -19,7 +19,8 @@ class PointsController < ApplicationController
                 # render :new
             end
         end
-        return "YAY"
+        # a serializer which renders 
+        render json: {puzzles: PuzzleSerializer.new(Puzzle.last)}
 
     end
 
@@ -30,6 +31,6 @@ class PointsController < ApplicationController
     end
 
     def points_from_editor
-        params.permit(:create_points)
+        params[:create_points]
     end
 end

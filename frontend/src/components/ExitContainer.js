@@ -18,7 +18,7 @@ class ExitContainer extends Component {
         return (
             <div className="exit-container">
                 <div className="hud">
-                    <p>Difficulty: {this.props.selectedPuzzle && this.props.selectedPuzzle.difficulty}</p>
+                    <p>Level: {this.props.selectedPuzzle && this.props.selectedPuzzle.difficulty}</p>
                 </div>
 
                 <div className="dialogue-container" onClick={this.props.toggleSolutionFound}>

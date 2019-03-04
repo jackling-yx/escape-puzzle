@@ -1,0 +1,28 @@
+.levelbrowser-container {
+   display: flex;
+   /* flex-direction: column; */
+   justify-content: space-around;
+   position: relative;
+   height: 720px;
+   width: 1280px;
+   border-radius: 25px;
+   box-shadow: 0px 0px 20px rgba(255,255,255,0.5);
+   background-color: rgba(0, 0, 0, 0);
+   background-size: 100%;
+   overflow: scroll;
+}
+
+.levelbrowser-container::-webkit-scrollbar { 
+    display: none; 
+}
+
+.puzzle-image-card {
+    height: auto;
+    width: 320px;
+    border-radius: 25px;
+}
+
+.card-details {
+    position: relative;
+    color: white
+}

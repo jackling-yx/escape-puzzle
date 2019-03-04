@@ -8,6 +8,7 @@ import ExitContainer from './components/ExitContainer';
 import LevelCreationContainer from './components/LevelCreationContainer';
 import LevelCreationForm from './components/LevelCreationForm'
 import FailedLevelContainer from './components/FailedLevelContainer';
+import LevelBrowserContainer from './components/LevelBrowserContainer'
 
 const API = 'http://localhost:3000'
 
@@ -24,17 +25,41 @@ class App extends Component {
         create_puzzle_image: "",
         create_answer: "",
         create_difficulty: "",
-        time_left: 10
+        time_left: 10,
+        browse_level: false,
     }
     
     componentDidMount() {
-            // this.isMouseWithinPoint(MouseEvent);
-            this.fetchComments();
-            this.fetchPuzzles(1);
-            this.setState({count: setInterval(this.outOfTime, 1000) })
+        // this.isMouseWithinPoint(MouseEvent);
+        this.fetchComments();
+        this.fetchPuzzles(1);
+        this.setState({count: setInterval(this.outOfTime, 1000) })
             // this.selectPuzzleLevel(1);
         }
         
+    outOfTime = () => {
+        if (this.state.time_left <= 1 || this.state.create_level || this.state.browse_level){
+            clearInterval(this.state.count)
+        }
+        this.countDown()
+    }
+
+    /* functions to browse level */
+    toggleBrowseLevel = () => {
+        if (!this.state.browse_level)
+            this.setState({
+                browse_level: !this.state.browse_level,
+                // count: setInterval(this.outOfTime, 1000)
+            })
+        else {
+            this.setState({
+                browse_level: !this.state.browse_level,
+                count: setInterval(this.outOfTime, 1000)
+            })
+        }
+    }
+
+
     getPuzzleWindowCoordinates = (MouseEvent) => {
         let puzzleWindow = document.querySelector('.puzzle-container')
         if (!puzzleWindow) {
@@ -108,10 +133,17 @@ class App extends Component {
 
     /* Methods for creating a level */
     toggleCreateLevel = () => {
-        this.setState({
-            create_level: !this.state.create_level,
-            time_left: 300
-        })
+        if (!this.state.create_level)
+            this.setState({
+                create_level: !this.state.create_level,
+                // count: setInterval(this.outOfTime, 1000)
+            })
+        else {
+            this.setState({
+                create_level: !this.state.create_level,
+                count: setInterval(this.outOfTime, 1000)
+            })
+        }
     }
 
     addToPointsArray = (MouseEvent) => {
@@ -138,6 +170,7 @@ class App extends Component {
     }
 
     submitToCreateLevel = async (event) => {
+        const puzzlesCopy = [...this.state.puzzles]
         const payload = {
             create_points: this.state.create_points,
             image_url: this.state.create_puzzle_image,
@@ -149,12 +182,15 @@ class App extends Component {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
-        }).then(resp => resp.json()).then(data => console.log(data))
+            }).then(resp => resp.json())
+                .then(data => 
+                    puzzlesCopy.push(data.puzzles))
         this.setState({
             create_points: [],
             create_puzzle_image: "",
             difficulty: "",
             answer: "",
+            puzzles: puzzlesCopy
         })
     } 
 
@@ -167,7 +203,8 @@ class App extends Component {
         debugger
         this.setState({ 
             selectedPuzzle: foundPuzzle,
-            time_left: 10
+            time_left: 300,
+            count: setInterval(this.outOfTime, 1000)
          })
     } 
 
@@ -191,9 +228,7 @@ class App extends Component {
         console.log(minutes + ':' + seconds)
     }
 
-    outOfTime = () => {
-        this.state.time_left === 0 ? clearInterval(this.state.count) : this.countDown()
-    }
+
 
     render() {
         return (
@@ -203,15 +238,19 @@ class App extends Component {
                 <div>
                     <LevelCreationContainer addToPointsArray={this.addToPointsArray} create_puzzle_image={this.state.create_puzzle_image}/> 
                     <LevelCreationForm updatePoints={this.updatePoints} create_points={this.state.create_points} updateLevelProperties={this.updateLevelProperties} submitToCreateLevel={this.submitToCreateLevel}/> 
-                    </div> : (this.state.solution_found) ? 
+                    </div> : (this.state.browse_level) ?
+                    <LevelBrowserContainer puzzles={this.state.puzzles} /> :(this.state.solution_found) ? 
                     <ExitContainer selectedPuzzle={this.state.selectedPuzzle} toggleSolutionFound={this.toggleSolutionFound}/> : 
                         (this.state.time_left <= 0) ? 
-                    <FailedLevelContainer selectedPuzzleImage={this.state.selectedPuzzle.image_url} selectedPuzzle={this.state.selectedPuzzle} toggleSolutionFound={this.toggleSolutionFound} /> : 
+                    <FailedLevelContainer selectedPuzzleImage={this.state.selectedPuzzle.image_url} selectedPuzzle={this.state.selectedPuzzle} toggleSolutionFound={this.toggleSolutionFound} /> :  
                     <PuzzleContainer isMouseWithinPoint={this.isMouseWithinPoint} puzzles={this.state.puzzles} selectedPuzzle={this.state.selectedPuzzle} getPuzzleWindowCoordinates={this.getPuzzleWindowCoordinates} toggleSolutionFound={this.toggleSolutionFound} timeLeft={this.state.time_left}/>
                 }
                     <div className="create-level-toggle" onClick={this.toggleCreateLevel}>
                         {!this.state.create_level ? "Create Level" : "Back"}
                     </div>
+                    <div className="create-level-toggle" onClick={this.toggleBrowseLevel}>
+                      {!this.state.browse_level ? "Browse Level" : "Back"}
+                   </div>
                     <form onSubmit={this.setLevel}>
                         <input name="selectedPuzzleId" onChange={this.updateLevelProperties} placeholder="Select level here"></input>
                         <input type="submit" value="Load Level"></input>

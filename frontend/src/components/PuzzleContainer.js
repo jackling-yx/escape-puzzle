@@ -101,8 +101,8 @@ class PuzzleContainer extends Component {
       return (
         <div className="puzzle-container" onClick={this.checkCoordinates}>
           <div className="hud">
+          <p>Level: {this.props.selectedPuzzle && this.props.selectedPuzzle.difficulty}</p>
           <p>Time left: {this.convertToTime(this.props.timeLeft)}</p>
-            <p>Difficulty: {this.props.selectedPuzzle && this.props.selectedPuzzle.difficulty}</p>
           </div>
         { (this.state.play_intro_dialogue) && <IntroDialogue hideDialogue={this.hideDialogue}/>
         }
