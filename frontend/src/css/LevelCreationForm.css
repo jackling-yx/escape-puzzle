@@ -1,18 +1,29 @@
 .levelcreation-form {
     display: flex;
     flex-direction: column;
-    position: absolute;
-    border-style: solid;
+    border-style: 0.5em solid;
     border-color: rgba(100,100,100,1);
-    border-radius: 10px;
+    border-radius: 25px;
     z-index: 11;
     color: white;
-    width: 390px;
-    margin: 20px;
-    padding-left: 10px;
-    padding-right: 10px;
     box-shadow: 0px 0px 20px rgba(255,255,255,0.5);
-    transform: translate(10% 50%)
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    max-width: 600px;
+    width: 90%;
+    background-color: black;
+    margin: 0;
+    height: 300px;
+    overflow: scroll;
+    padding: 0.5em;
+    transform: translate(-50%, 110%);
+    transition: 0.5s;
+    background-color: rgb(0, 0, 0, 0.9)
+}
+
+.levelcreation-form.show {
+    transform: translate(-50%, -8%);
 }
 
 .x {
@@ -26,6 +37,27 @@
 }
 
 .text {
-    width: 65%;
+    width: 66.6%;
     margin: 5px 2.5px 5px 2.5px
+}
+
+.button-container {
+    display:block;
+}
+
+.create-puzzle-props {
+    width: 175px;
+    margin: 0.5em;
+}
+
+.puzzle-props {
+    width: 500px;
+    margin: 0.5em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* flex-direction: column; */
+    align-items: center;
+    border-color: grey;
+    /* margin: 0.5em; */
 }

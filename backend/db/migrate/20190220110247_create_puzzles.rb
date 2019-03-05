@@ -5,6 +5,7 @@ class CreatePuzzles < ActiveRecord::Migration[5.2]
       t.string :difficulty
       t.string :puzzle_name
       t.string :answer
+      t.string :creator
 
       t.timestamps
     end

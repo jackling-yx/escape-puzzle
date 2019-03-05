@@ -37,10 +37,13 @@ class LevelCreation extends Component {
     
     render(){
         return (
-            <form className="levelcreation-form" onSubmit={this.props.submitToCreateLevel}>
+            <form className={"levelcreation-form " + (this.props.show_form ? "show" : '')} onSubmit={this.props.submitToCreateLevel}>
+                <div className="puzzle-props">
                 <input required type='text' className="create-puzzle-props" name='create_puzzle_image' placeholder="Image url here" onChange={this.props.updateLevelProperties}></input>
                 <input required type='text' className="create-puzzle-props" name='create_answer' placeholder="Enter your answer here" onChange={this.props.updateLevelProperties}></input>
-                <input required type='text' className="create-puzzle-props" name='create_difficulty' placeholder="Enter your difficulty here" onChange={this.props.updateLevelProperties}></input>
+                <input required type='text' className="create-puzzle-props" name='creator_name' placeholder="Enter your name here" onChange={this.props.updateLevelProperties}></input>
+                <input required type='text' className="create-puzzle-props" name='create_difficulty' placeholder="Enter your level name here" onChange={this.props.updateLevelProperties}></input>
+                </div>
                 
 
                 <h5>Positions: </h5>
@@ -50,7 +53,9 @@ class LevelCreation extends Component {
                     <input required type="text" placeholder="Dialogue" name="text" className={"text"} value={point[2]} onChange={this.onChangeHandler}></input>
                 </label>
                 )}
-                <input type="submit" value="submit!"></input>
+                <div className="button-container">
+                    <input type="submit" value="submit!"></input>
+                </div>
             </form>
         )
     }

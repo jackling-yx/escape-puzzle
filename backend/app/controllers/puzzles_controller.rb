@@ -34,6 +34,6 @@ class PuzzlesController < ApplicationController
     private
 
     def puzzle_params
-        params.require(:puzzle).permit(:image_url, :difficulty, :answer)
+        params.require(:puzzle).permit(:image_url, :difficulty, :answer, :creator)
     end
 end

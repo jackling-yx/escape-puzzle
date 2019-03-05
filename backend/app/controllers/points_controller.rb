@@ -8,7 +8,7 @@ class PointsController < ApplicationController
     end
 
     def create
-        byebug
+        # byebug
         points_from_editor.each do |array|
             @point = Point.new(xcoordinate: array[0], ycoordinate: array[1], text: array[2])
             @point.puzzle_id = params["locals"]["puzzle_id"]

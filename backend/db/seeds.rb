@@ -4,10 +4,10 @@ c2 = Comment.create(name: 'CodersInHoods', message: 'EZ!')
 c3 = Comment.create(name: 'Serena', message: 'Dis gaem sux')
 c4 = Comment.create(name: 'Ja9', message: '^Be nice!')
 
-puzzle1 = Puzzle.create!(image_url: 'https://cdn1.epicgames.com/ue/product/Screenshot/QAOfficescreenshot06-1920x1080-322fd1721c6cc608d58d9ad199e926d9.jpg', difficulty: 'Demo Version', puzzle_name:'Demo Puzzle', answer: '35124')
+puzzle1 = Puzzle.create!(image_url: 'https://cdn1.epicgames.com/ue/product/Screenshot/QAOfficescreenshot06-1920x1080-322fd1721c6cc608d58d9ad199e926d9.jpg', difficulty: 'Demo Version', puzzle_name:'Demo Puzzle', answer: '35124', creator: 'Jack')
 
 # Seed data for default puzzle
-[
+points = Point.create([
  [ xcoordinate: 760, ycoordinate: 429, text: "[5] The label says: 'return Drawers.current_position / 2'", puzzle_id: 1],
  [xcoordinate: 600, ycoordinate: 375, text: "[1] The LCD display just says: 'Valve can't count to...'", puzzle_id: 1],
  [xcoordinate: 476, ycoordinate: 322, text: "[2] Some scribbled notes... It says: [25, 35, 10, 55].map( element => element / 5][0]", puzzle_id: 1],
@@ -29,6 +29,4 @@ puzzle1 = Puzzle.create!(image_url: 'https://cdn1.epicgames.com/ue/product/Scree
  [xcoordinate: 541, ycoordinate: 142, text: "The lights are off. I think I'll keep it that way...", puzzle_id: 1],
  [xcoordinate: 601, ycoordinate: 153, text: "The lights are off. I think I'll keep it that way...", puzzle_id: 1],
  [xcoordinate: 444, ycoordinate: 427, text: 'Computer for Passcode', puzzle_id: 1]
-]
-
-points_array = [ [] ] 
+])

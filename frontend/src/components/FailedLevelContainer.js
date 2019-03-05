@@ -19,10 +19,12 @@ class FailedLevelContainer extends Component {
         return (
             <div className="exit-container">
                 <div className="hud">
+                    <p>Created By: {this.props.selectedPuzzle && this.props.selectedPuzzle.creator}</p>
                     <p>Level: {this.props.selectedPuzzle && this.props.selectedPuzzle.difficulty}</p>
+                    <p>Time left: {this.props.convertToTime(this.props.timeLeft)}</p>
                 </div>
 
-                <div className="dialogue-container" onClick={this.props.toggleSolutionFound}>
+                <div className="dialogue-container">
                     <p className="failed-dialogue"></p>
                 </div>
             </div>

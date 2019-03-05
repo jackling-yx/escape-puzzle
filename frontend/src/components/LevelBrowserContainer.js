@@ -7,8 +7,8 @@ class LevelBrowserContainer extends Component {
 
     render() {
         return (
-            <div className="levelbrowser-container" onClick={this.props.addToPointsArray}>
-                {this.props.puzzles.map(puzzle => <LevelCard puzzle={puzzle}/>)}
+            <div className="levelbrowser-container">
+                {this.props.puzzles.map(puzzle => <LevelCard puzzle={puzzle} setLevelThroughBrowser={this.props.setLevelThroughBrowser} key={puzzle.id}/>)}
             </div>
         )
     }

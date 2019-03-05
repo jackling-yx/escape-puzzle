@@ -16,7 +16,10 @@
 
 .hud {
   position: absolute;
-  
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1em;
+  width: 80%;
 }
 
 .hud p {

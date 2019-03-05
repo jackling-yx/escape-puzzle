@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2019_02_21_110450) do
     t.string "difficulty"
     t.string "puzzle_name"
     t.string "answer"
+    t.string "creator"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

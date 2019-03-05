@@ -25,6 +25,7 @@ class App extends Component {
         create_puzzle_image: "",
         create_answer: "",
         create_difficulty: "",
+        creator_name: '',
         time_left: 10,
         browse_level: false,
     }
@@ -38,26 +39,13 @@ class App extends Component {
         }
         
     outOfTime = () => {
-        if (this.state.time_left <= 1 || this.state.create_level || this.state.browse_level){
+        if (this.state.time_left <= 1 || this.state.create_level || this.state.browse_level || this.state.solution_found){
             clearInterval(this.state.count)
         }
         this.countDown()
     }
 
-    /* functions to browse level */
-    toggleBrowseLevel = () => {
-        if (!this.state.browse_level)
-            this.setState({
-                browse_level: !this.state.browse_level,
-                // count: setInterval(this.outOfTime, 1000)
-            })
-        else {
-            this.setState({
-                browse_level: !this.state.browse_level,
-                count: setInterval(this.outOfTime, 1000)
-            })
-        }
-    }
+    
 
 
     getPuzzleWindowCoordinates = (MouseEvent) => {
@@ -136,6 +124,7 @@ class App extends Component {
         if (!this.state.create_level)
             this.setState({
                 create_level: !this.state.create_level,
+                browse_level: false
                 // count: setInterval(this.outOfTime, 1000)
             })
         else {
@@ -147,11 +136,16 @@ class App extends Component {
     }
 
     addToPointsArray = (MouseEvent) => {
-        let array = this.getPuzzleWindowCoordinates(MouseEvent)
-        array.push('')
-        const current_array = [...this.state.create_points]
-        current_array.push(array)
-        this.setState({create_points: current_array})
+        if (this.state.create_puzzle_image) {
+            let array = this.getPuzzleWindowCoordinates(MouseEvent)
+            array.push('')
+            const current_array = [...this.state.create_points]
+            current_array.push(array)
+            this.setState({create_points: current_array})
+        }
+        else {
+            alert('Please add an image before adding points!')
+        }
     }
 
     editPoints = (point) => {
@@ -176,6 +170,7 @@ class App extends Component {
             image_url: this.state.create_puzzle_image,
             difficulty: this.state.create_difficulty,
             answer: this.state.create_answer,
+            creator: this.state.creator_name
         }
         event.preventDefault();
         await fetch(API + '/puzzles', {
@@ -190,9 +185,27 @@ class App extends Component {
             create_puzzle_image: "",
             difficulty: "",
             answer: "",
-            puzzles: puzzlesCopy
+            creator_name: '',
+            puzzles: puzzlesCopy,
+            create_level: false,
         })
     } 
+
+    /* Browse level */
+    toggleBrowseLevel = () => {
+        if (!this.state.browse_level)
+            this.setState({
+                browse_level: !this.state.browse_level,
+                create_level: false,
+                // count: setInterval(this.outOfTime, 1000)
+            })
+        else {
+            this.setState({
+                browse_level: !this.state.browse_level,
+                count: setInterval(this.outOfTime, 1000)
+            })
+        }
+    }
 
     /* Level Selector */
     setLevel = (event) => {
@@ -200,11 +213,24 @@ class App extends Component {
         const selectedId = this.state.selectedPuzzleId
         const foundPuzzle = this.state.puzzles.find(puzzle => puzzle.id === parseInt(selectedId))
         const puzzleList = [...this.state.puzzles]
-        debugger
         this.setState({ 
             selectedPuzzle: foundPuzzle,
             time_left: 300,
-            count: setInterval(this.outOfTime, 1000)
+            count: setInterval(this.outOfTime, 1000),
+            solution_found: false,
+         })
+    } 
+
+    setLevelThroughBrowser = (puzzleid) => {
+        const selectedId = this.state.selectedPuzzleId
+        const foundPuzzle = this.state.puzzles.find(puzzle => puzzle.id === parseInt(puzzleid))
+        const puzzleList = [...this.state.puzzles]
+        this.setState({ 
+            selectedPuzzle: foundPuzzle,
+            time_left: 300,
+            count: setInterval(this.outOfTime, 1000),
+            solution_found: false,
+            browse_level: false
          })
     } 
 
@@ -221,13 +247,22 @@ class App extends Component {
     //     }, 1000)
     // })
 
-    convertToTime = (time) => {
-        let minutes = Math.floor(time/60)
-        let seconds = time % 60
-        debugger
-        console.log(minutes + ':' + seconds)
-    }
+    // convertToTime = (time) => {
+    //     let minutes = Math.floor(time/60)
+    //     let seconds = time % 60
+    //     debugger
+    //     console.log(minutes + ':' + seconds)
+    // }
 
+    convertToTime = (time) => {
+        let minutes = Math.floor(time / 60)
+        let seconds = time % 60
+        console.log(minutes + ':' + seconds)
+        if (seconds < 10) {
+            return minutes + ':' + '0' + seconds
+        }
+        return minutes + ':' + seconds
+    }
 
 
     render() {
@@ -235,22 +270,24 @@ class App extends Component {
             <div className="app">
                 <Logo />
                 {this.state.create_level ? 
-                <div>
-                    <LevelCreationContainer addToPointsArray={this.addToPointsArray} create_puzzle_image={this.state.create_puzzle_image}/> 
-                    <LevelCreationForm updatePoints={this.updatePoints} create_points={this.state.create_points} updateLevelProperties={this.updateLevelProperties} submitToCreateLevel={this.submitToCreateLevel}/> 
-                    </div> : (this.state.browse_level) ?
-                    <LevelBrowserContainer puzzles={this.state.puzzles} /> :(this.state.solution_found) ? 
-                    <ExitContainer selectedPuzzle={this.state.selectedPuzzle} toggleSolutionFound={this.toggleSolutionFound}/> : 
-                        (this.state.time_left <= 0) ? 
-                    <FailedLevelContainer selectedPuzzleImage={this.state.selectedPuzzle.image_url} selectedPuzzle={this.state.selectedPuzzle} toggleSolutionFound={this.toggleSolutionFound} /> :  
-                    <PuzzleContainer isMouseWithinPoint={this.isMouseWithinPoint} puzzles={this.state.puzzles} selectedPuzzle={this.state.selectedPuzzle} getPuzzleWindowCoordinates={this.getPuzzleWindowCoordinates} toggleSolutionFound={this.toggleSolutionFound} timeLeft={this.state.time_left}/>
+                    <div>
+                        <LevelCreationContainer addToPointsArray={this.addToPointsArray} create_puzzle_image={this.state.create_puzzle_image}/> 
+                    </div> : 
+                (this.state.browse_level) ?
+                        <LevelBrowserContainer puzzles={this.state.puzzles} setLevelThroughBrowser={this.setLevelThroughBrowser}/> : 
+                (this.state.solution_found) ? 
+                            <ExitContainer selectedPuzzle={this.state.selectedPuzzle} toggleSolutionFound={this.toggleSolutionFound} timeLeft={this.state.time_left} convertToTime={this.convertToTime}/> : 
+                (this.state.time_left <= 0) ? 
+                        <FailedLevelContainer selectedPuzzleImage={this.state.selectedPuzzle.image_url} selectedPuzzle={this.state.selectedPuzzle} toggleSolutionFound={this.toggleSolutionFound} timeLeft={this.state.time_left} convertToTime={this.convertToTime}/> :  
+                        <PuzzleContainer isMouseWithinPoint={this.isMouseWithinPoint} puzzles={this.state.puzzles} selectedPuzzle={this.state.selectedPuzzle} getPuzzleWindowCoordinates={this.getPuzzleWindowCoordinates} toggleSolutionFound={this.toggleSolutionFound} timeLeft={this.state.time_left} convertToTime={this.convertToTime}/>
                 }
-                    <div className="create-level-toggle" onClick={this.toggleCreateLevel}>
-                        {!this.state.create_level ? "Create Level" : "Back"}
+                    <div className={"create-level-toggle " + (this.state.create_level ? "create" : '')} onClick={this.toggleCreateLevel}>
+                        {!this.state.create_level ? "Create Level" : "Cancel"}
                     </div>
-                    <div className="create-level-toggle" onClick={this.toggleBrowseLevel}>
-                      {!this.state.browse_level ? "Browse Level" : "Back"}
+                <div className={"create-level-toggle " + (this.state.browse_level ? "browse" : '')} onClick={this.toggleBrowseLevel}>
+                      {!this.state.browse_level ? "Browse Levels" : "Back"}
                    </div>
+                <LevelCreationForm updatePoints={this.updatePoints} create_points={this.state.create_points} updateLevelProperties={this.updateLevelProperties} submitToCreateLevel={this.submitToCreateLevel} show_form={this.state.create_level} outOfTime={this.outOfTime} /> 
                     <form onSubmit={this.setLevel}>
                         <input name="selectedPuzzleId" onChange={this.updateLevelProperties} placeholder="Select level here"></input>
                         <input type="submit" value="Load Level"></input>
