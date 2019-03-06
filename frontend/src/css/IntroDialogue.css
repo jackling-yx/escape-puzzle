@@ -21,6 +21,8 @@
     opacity: 0;
     height: 100%;
     width: 100%;
+    cursor: default;
+
 }
 
 @keyframes fadeOut {
@@ -44,11 +46,11 @@
 }
 
 .fadeIn {
-    animation: 3s forwards fadeIn;
+    animation: 2s forwards fadeIn;
     animation-delay: 1s;
 }
 
 .fadeInText {
     animation: 3s forwards fadeInText;
-    animation-delay: 5s;
+    animation-delay: 3s;
 }

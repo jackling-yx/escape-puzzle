@@ -12,6 +12,8 @@ import LevelBrowserContainer from './components/LevelBrowserContainer'
 
 const API = 'http://localhost:3000'
 
+
+
 class App extends Component {
 
     state = {
@@ -35,8 +37,7 @@ class App extends Component {
         this.fetchComments();
         this.fetchPuzzles(1);
         this.setState({count: setInterval(this.outOfTime, 1000) })
-            // this.selectPuzzleLevel(1);
-        }
+    }
         
     outOfTime = () => {
         if (this.state.time_left <= 1 || this.state.create_level || this.state.browse_level || this.state.solution_found){
@@ -124,7 +125,8 @@ class App extends Component {
         if (!this.state.create_level)
             this.setState({
                 create_level: !this.state.create_level,
-                browse_level: false
+                browse_level: false,
+                create_points: [],
                 // count: setInterval(this.outOfTime, 1000)
             })
         else {
@@ -165,6 +167,7 @@ class App extends Component {
 
     submitToCreateLevel = async (event) => {
         const puzzlesCopy = [...this.state.puzzles]
+        event.preventDefault();
         const payload = {
             create_points: this.state.create_points,
             image_url: this.state.create_puzzle_image,
@@ -172,24 +175,37 @@ class App extends Component {
             answer: this.state.create_answer,
             creator: this.state.creator_name
         }
-        event.preventDefault();
-        await fetch(API + '/puzzles', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
+        if (this.state.create_points.map(point => (point.length <= 2))) { 
+            alert("You haven't included a passcode point. Please put 'passcode' as the dialogue for one of your selected points.")
+        }
+        else if (!this.state.create_points.map(point => point[2].includes('passcode')).includes(true)) {
+            alert("You haven't included a passcode point. Please put 'passcode' as the dialogue for one of your selected points.")
+        }
+        else {
+            debugger
+            await fetch(API + '/puzzles', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
             }).then(resp => resp.json())
-                .then(data => 
+                .then(data =>
                     puzzlesCopy.push(data.puzzles))
-        this.setState({
-            create_points: [],
-            create_puzzle_image: "",
-            difficulty: "",
-            answer: "",
-            creator_name: '',
-            puzzles: puzzlesCopy,
-            create_level: false,
-        })
-    } 
+            this.setState({
+                create_points: [],
+                create_puzzle_image: "",
+                difficulty: "",
+                answer: "",
+                creator_name: '',
+                puzzles: puzzlesCopy,
+                create_level: false,
+            })
+        }
+    }
+    
+    // includesPasscode = (points) => {
+    //     const hasPasscode = points.map(point => point[2].includes('passcode')).includes(true)
+    //     return hasPasscode
+    // }
 
     /* Browse level */
     toggleBrowseLevel = () => {
@@ -285,7 +301,7 @@ class App extends Component {
                         {!this.state.create_level ? "Create Level" : "Cancel"}
                     </div>
                 <div className={"create-level-toggle " + (this.state.browse_level ? "browse" : '')} onClick={this.toggleBrowseLevel}>
-                      {!this.state.browse_level ? "Browse Levels" : "Back"}
+                      {!this.state.browse_level ? "Browse" : "Back"}
                    </div>
                 <LevelCreationForm updatePoints={this.updatePoints} create_points={this.state.create_points} updateLevelProperties={this.updateLevelProperties} submitToCreateLevel={this.submitToCreateLevel} show_form={this.state.create_level} outOfTime={this.outOfTime} numberOfPuzzles={this.state.puzzles.length + 1}/> 
                     {/* <form onSubmit={this.setLevel}>

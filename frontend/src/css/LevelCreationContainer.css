@@ -9,7 +9,11 @@
    background-color: rgba(0, 0, 0, 0);
    background-size: 100%;
    background-image: url('/instructions2.png');
+   transition: 0.3s;
+}
 
+.levelcreation-container:hover{
+  box-shadow: 0px 0px 40px rgba(255,255,255,0.5)
 }
 
 .image-input {

@@ -16,7 +16,7 @@ class PuzzleContainer extends Component {
 
   displayMessage = (id) => {
     const puzzle = { ...this.props.selectedPuzzle }
-    const foundPoint = puzzle.points.find(point => point.id == id)
+    const foundPoint = puzzle.points.find(point => point.id === id)
   
     if (foundPoint.text.toLowerCase().includes('passcode')) {
       this.setState({
@@ -79,9 +79,9 @@ class PuzzleContainer extends Component {
 
   handleSubmitAnswer = (event) => {
     event.preventDefault()
-    console.log(this.state.answer_text == this.props.selectedPuzzle.answer)
+    console.log(this.state.answer_text === this.props.selectedPuzzle.answer)
 
-    if (this.state.answer_text == this.props.selectedPuzzle.answer) {
+    if (this.state.answer_text === this.props.selectedPuzzle.answer) {
       this.props.toggleSolutionFound()
     }
   }
@@ -94,6 +94,7 @@ class PuzzleContainer extends Component {
       return minutes + ':' + '0'+ seconds
     }
     return minutes + ':' + seconds
+    
   }
 
     render() {

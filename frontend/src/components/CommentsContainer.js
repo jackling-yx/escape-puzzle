@@ -44,7 +44,11 @@ class CommentsContainer extends Component {
         return (
             <div className="comments-container">
                 <Form handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
-                <p>Comments (No spoilers!): </p> <button className="filter-toggle" onClick={this.handleSortToggle}>Old / New First</button>
+                <div className='sort-toggle-container'>
+                    <p className="comments-label">Comments (No spoilers!): </p> 
+                    {this.state.reverse_date ? <button className="filter-toggle" onClick={this.handleSortToggle}>Newest First</button> : <button className="filter-toggle" onClick={this.handleSortToggle}>Oldest First</button>
+                    }
+                </div>
                
                 {this.state.reverse_date ? [...this.props.comments].map( comment => 
                     <li key={comment.id}><Comment comment={comment} /></li>

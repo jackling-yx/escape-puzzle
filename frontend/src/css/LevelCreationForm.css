@@ -15,11 +15,15 @@
     background-color: black;
     margin: 0;
     height: 300px;
-    overflow: scroll;
-    padding: 0.5em;
+    overflow-y: scroll;
+    padding: 0.5em 0 1em 0;
     transform: translate(-50%, 110%);
-    transition: 0.5s;
+    transition: 0.3s;
     background-color: rgb(0, 0, 0, 0.9)
+}
+
+.levelcreation-form:hover {
+    box-shadow: 0px 0px 40px rgba(255,255,255,0.5);
 }
 
 .levelcreation-form.show {
@@ -27,17 +31,17 @@
 }
 
 .x {
-    width: 15%;
+    width: 9%;
     margin: 5px 2.5px 5px 2.5px
 }
 
 .y { 
-    width: 15%;
+    width: 9%;
     margin: 5px 2.5px 5px 2.5px
 }
 
 .text {
-    width: 66.6%;
+    width: 73%;
     margin: 5px 2.5px 5px 2.5px
 }
 
@@ -59,5 +63,47 @@
     /* flex-direction: column; */
     align-items: center;
     border-color: grey;
-    /* margin: 0.5em; */
+    min-height: 50px; 
+}
+
+h5 {
+    margin: 30px 0px 20px 0px;
+}
+
+.levelcreation-submit {     
+    color: white;
+    align-items: center;
+    /* margin-top: 10px; */
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    border-color: grey;
+    border-radius: 15px;
+    border-width: 2px;
+    z-index: 10;
+    background-color: black;
+    width: auto;
+    margin: 25px 5px 0px 5px;
+    padding: 3px 10px 5px 10px;
+    transition-duration: 0.3s;
+    cursor: default;
+}
+
+.levelcreation-submit:hover {
+    background-color: grey;
+    box-shadow: 0px 0px 20px rgba(255,255,255,0.7);
+}
+
+.levelcreation-submit:focus {
+    display: none;
+}
+
+.puzzle-props input {
+    width: 200px;
+}
+
+.levelcreation-clear {
+    width: 100px;
+    height: 15px;
+    padding: 5px 10px 5px 10px;
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../css/IntroDialogue.css';
 
-const text = "I need to find his confidential files... But what's his passcode...? I better search around the room quickly for some clues."
+const text = "How did I get here......... I gotta get outta here."
 
 class IntroDialogue extends Component {
 
@@ -14,7 +14,7 @@ class IntroDialogue extends Component {
                     dialogue.innerHTML += char
                 }, index * 50)
             })
-        }, 6000)
+        }, 5000)
         
     }
 

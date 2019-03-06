@@ -39,14 +39,16 @@
     z-index: 10;
     color: white;
     width: auto;
-    margin: 15px 5px 5px 5px;
+    margin: 25px 5px 0px 5px;
     padding: 5px 10px 5px 10px;
-    transition-duration: 0.5s;
+    transition-duration: 0.3s;
+    cursor: default;
     /* padding-left: 10px;
     padding-right: 10px; */
 }
 
 .create-level-toggle:hover {
+    background-color: grey;
     box-shadow: 0px 0px 20px rgba(255,255,255,0.7);
 }
 
@@ -56,4 +58,8 @@
 
 .create-level-toggle.create {
     box-shadow: 0px 0px 20px rgba(255,255,255,0.7);
+}
+
+input {
+    border-radius: 25px;
 }

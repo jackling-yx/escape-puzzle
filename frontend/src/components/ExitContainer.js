@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../css/ExitContainer.css';
 
-const text = 'Well done. You managed to escape in time! Why not try and create a level for yourself and share with your friends? Feel free to browse levels that others have created too!'
+const text = 'Well done. You managed to escape in time! Now create a level for yourself and share with your friends, or browse levels that others have created!'
 
 class ExitContainer extends Component {
 

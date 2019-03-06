@@ -12,6 +12,7 @@
     border-width: 3px;
     border-radius: 25px;
     outline: none;
+    cursor: default;
 }
 
 .button {

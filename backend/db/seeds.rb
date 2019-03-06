@@ -22,7 +22,7 @@ points = Point.create([
  [xcoordinate: 248, ycoordinate: 419, text: "Some random documents... Nothing useful.", puzzle_id: 1],
  [xcoordinate: 301, ycoordinate: 420, text: "Some random documents... Nothing useful.", puzzle_id: 1],
  [xcoordinate: 257, ycoordinate: 541, text: "A bin.", puzzle_id: 1],
- [xcoordinate: 768, ycoordinate: 309, text: "A picture of a yatch...", puzzle_id: 1],
+ [xcoordinate: 768, ycoordinate: 309, text: "A picture of a yacht...", puzzle_id: 1],
  [xcoordinate: 552, ycoordinate: 407, text: "A plant. Looks like it needs some watering.", puzzle_id: 1],
  [xcoordinate: 347, ycoordinate: 452, text: "A family of 4. Everyone but the dad has their faces scratched out. Werido...", puzzle_id: 1],
  [xcoordinate: 131, ycoordinate: 534, text: "His briefcase is empty. How inconvenient...", puzzle_id: 1],
