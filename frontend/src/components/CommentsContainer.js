@@ -17,21 +17,31 @@ class CommentsContainer extends Component {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    handleSubmit = async (event) => {
+    handleSubmit =  (event) => {
         const payload = {name: this.state.name,
             message: this.state.message,
             created_at: 'Just now'
         }
+       
         event.preventDefault();
-        await fetch(API + '/comments', {
+        fetch(API + '/comments', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 name: this.state.name,
                 message: this.state.message
             })
-        }).then(() => {this.props.updateComments(payload)})
+        }).then(() => {
+            this.props.updateComments(payload)
+        })
+        this.setState({
+            message: '',
+            name: '',
+            reverse_date: false
+        })
     }
+
+
 
     handleSortToggle = () => {
         this.setState({
@@ -43,7 +53,7 @@ class CommentsContainer extends Component {
     render() {
         return (
             <div className="comments-container">
-                <Form handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
+                <Form handleChange={this.handleChange} handleSubmit={this.handleSubmit} state={this.state}/>
                 <div className='sort-toggle-container'>
                     <p className="comments-label">Comments (No spoilers!): </p> 
                     {this.state.reverse_date ? <button className="filter-toggle" onClick={this.handleSortToggle}>Newest First</button> : <button className="filter-toggle" onClick={this.handleSortToggle}>Oldest First</button>

@@ -24,7 +24,7 @@ class FailedLevelContainer extends Component {
                     <p>Time left: {this.props.convertToTime(this.props.timeLeft)}</p>
                 </div>
 
-                <div className="dialogue-container">
+                <div className="dialogue-container" >
                     <p className="failed-dialogue"></p>
                 </div>
             </div>

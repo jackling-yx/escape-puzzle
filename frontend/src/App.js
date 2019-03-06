@@ -28,7 +28,7 @@ class App extends Component {
         create_answer: "",
         create_difficulty: "",
         creator_name: '',
-        time_left: 10,
+        time_left: 300,
         browse_level: false,
     }
     
@@ -175,15 +175,10 @@ class App extends Component {
             answer: this.state.create_answer,
             creator: this.state.creator_name
         }
-        if (this.state.create_points.map(point => (point.length <= 2))) { 
-            alert("You haven't included a passcode point. Please put 'passcode' as the dialogue for one of your selected points.")
-        }
-        else if (!this.state.create_points.map(point => point[2].includes('passcode')).includes(true)) {
-            alert("You haven't included a passcode point. Please put 'passcode' as the dialogue for one of your selected points.")
-        }
-        else {
-            debugger
-            await fetch(API + '/puzzles', {
+        console.log(payload)
+        debugger
+        
+             await fetch(API + '/puzzles', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -193,13 +188,13 @@ class App extends Component {
             this.setState({
                 create_points: [],
                 create_puzzle_image: "",
-                difficulty: "",
-                answer: "",
-                creator_name: '',
+                create_difficulty: "",
+                create_answer: "",
+                creator_name: "",
                 puzzles: puzzlesCopy,
                 create_level: false,
+                browse_level: true
             })
-        }
     }
     
     // includesPasscode = (points) => {
@@ -251,24 +246,17 @@ class App extends Component {
     } 
 
     countDown = () => {
-        this.setState ({
-            time_left: this.state.time_left - 1
-        })
+        if (this.state.time_left <= 0) {
+            this.setState ({
+                time_left: 0
+            })
+        }
+        else {
+            this.setState({
+                time_left: this.state.time_left - 1
+            })
+        }
     }
-
-    // const countDown = setInterval(() => {
-    //     this.setState({
-    //         time_left: this.state.time_left - 1
-    //         })
-    //     }, 1000)
-    // })
-
-    // convertToTime = (time) => {
-    //     let minutes = Math.floor(time/60)
-    //     let seconds = time % 60
-    //     debugger
-    //     console.log(minutes + ':' + seconds)
-    // }
 
     convertToTime = (time) => {
         let minutes = Math.floor(time / 60)
@@ -287,14 +275,14 @@ class App extends Component {
                 <Logo />
                 {this.state.create_level ? 
                     <div>
-                        <LevelCreationContainer addToPointsArray={this.addToPointsArray} create_puzzle_image={this.state.create_puzzle_image}/> 
+                        <LevelCreationContainer addToPointsArray={this.addToPointsArray} create_puzzle_image={this.state.create_puzzle_image} /> 
                     </div> : 
                 (this.state.browse_level) ?
                         <LevelBrowserContainer puzzles={this.state.puzzles} setLevelThroughBrowser={this.setLevelThroughBrowser}/> : 
                 (this.state.solution_found) ? 
-                            <ExitContainer selectedPuzzle={this.state.selectedPuzzle} toggleSolutionFound={this.toggleSolutionFound} timeLeft={this.state.time_left} convertToTime={this.convertToTime}/> : 
+                        <ExitContainer selectedPuzzle={this.state.selectedPuzzle} toggleSolutionFound={this.toggleSolutionFound} timeLeft={this.state.time_left} convertToTime={this.convertToTime}/> : 
                 (this.state.time_left <= 0) ? 
-                        <FailedLevelContainer selectedPuzzleImage={this.state.selectedPuzzle.image_url} selectedPuzzle={this.state.selectedPuzzle} toggleSolutionFound={this.toggleSolutionFound} timeLeft={this.state.time_left} convertToTime={this.convertToTime}/> :  
+                        <FailedLevelContainer selectedPuzzleImage={this.state.selectedPuzzle.image_url} selectedPuzzle={this.state.selectedPuzzle} toggleSolutionFound={this.toggleSolutionFound} timeLeft={this.state.time_left} convertToTime={this.convertToTime} setLevelThroughBrowser={this.setLevelThroughBrowser}/> :  
                         <PuzzleContainer isMouseWithinPoint={this.isMouseWithinPoint} puzzles={this.state.puzzles} selectedPuzzle={this.state.selectedPuzzle} getPuzzleWindowCoordinates={this.getPuzzleWindowCoordinates} toggleSolutionFound={this.toggleSolutionFound} timeLeft={this.state.time_left} convertToTime={this.convertToTime}/>
                 }
                     <div className={"create-level-toggle " + (this.state.create_level ? "create" : '')} onClick={this.toggleCreateLevel}>
@@ -303,7 +291,7 @@ class App extends Component {
                 <div className={"create-level-toggle " + (this.state.browse_level ? "browse" : '')} onClick={this.toggleBrowseLevel}>
                       {!this.state.browse_level ? "Browse" : "Back"}
                    </div>
-                <LevelCreationForm updatePoints={this.updatePoints} create_points={this.state.create_points} updateLevelProperties={this.updateLevelProperties} submitToCreateLevel={this.submitToCreateLevel} show_form={this.state.create_level} outOfTime={this.outOfTime} numberOfPuzzles={this.state.puzzles.length + 1}/> 
+                <LevelCreationForm updatePoints={this.updatePoints} create_points={this.state.create_points} updateLevelProperties={this.updateLevelProperties} submitToCreateLevel={this.submitToCreateLevel} show_form={this.state.create_level} outOfTime={this.outOfTime} numberOfPuzzles={this.state.puzzles.length + 1} state={this.state}/> 
                     {/* <form onSubmit={this.setLevel}>
                         <input name="selectedPuzzleId" onChange={this.updateLevelProperties} placeholder="Select level here"></input>
                         <input type="submit" value="Load Level"></input>

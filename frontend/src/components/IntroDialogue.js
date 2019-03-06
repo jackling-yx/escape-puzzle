@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../css/IntroDialogue.css';
 
-const text = "How did I get here......... I gotta get outta here."
+const text = "How did I get here......... I gotta get outta here, fast..."
 
 class IntroDialogue extends Component {
 
@@ -12,7 +12,7 @@ class IntroDialogue extends Component {
             text.split('').map((char, index) => {
                 setTimeout(() => {
                     dialogue.innerHTML += char
-                }, index * 50)
+                }, index * 75)
             })
         }, 5000)
         
