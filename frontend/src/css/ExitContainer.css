@@ -7,6 +7,23 @@
   width: 1280px;
   border-radius: 25px;
   box-shadow: 0px 0px 20px rgba(255,255,255,0.5);
-  background: url('/escaped.png');
-  background-size: 1280px 720px
+  background: url('/fakehack.gif');
+  background-repeat: no-repeat;
+  background-color: rgb(1, 4, 0);
+  /* background-size: 1280px 720px */
+}
+
+.exit-dialogue {
+    background: rgba(0,0,0,0.5);
+    font-size: 1.25em;
+    font-style: strong;
+    color: rgb(80,255,80);
+    width: 50%;
+    height: 100px;
+    margin: 15px 15px 15px 15px;
+    padding: 10px 30px 10px 30px;
+    text-align: center;
+    border-style: solid;
+    border-color: grey;
+    border-radius: 25px;
 }

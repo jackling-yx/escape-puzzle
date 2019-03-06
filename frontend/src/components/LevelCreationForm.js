@@ -46,7 +46,7 @@ class LevelCreation extends Component {
                 </div>
                 
 
-                <h5>Positions: </h5>
+                <h5>Your level ID is: {this.props.numberOfPuzzles}</h5>
                 {this.props.create_points.map((point, i) => <label className={`point-${i}`}>
                     <input required placeholder="x coordinate" name="x" className={"x"} value={point[0]} onChange={this.onChangeHandler}></input>
                     <input required placeholder="y coordinate" name="y" className={"y"} value={point[1]} onChange={this.onChangeHandler}></input>

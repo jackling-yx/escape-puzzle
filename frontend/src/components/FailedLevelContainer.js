@@ -17,7 +17,7 @@ class FailedLevelContainer extends Component {
 
     render() {
         return (
-            <div className="exit-container">
+            <div className="failed-container">
                 <div className="hud">
                     <p>Created By: {this.props.selectedPuzzle && this.props.selectedPuzzle.creator}</p>
                     <p>Level: {this.props.selectedPuzzle && this.props.selectedPuzzle.difficulty}</p>

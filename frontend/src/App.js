@@ -287,11 +287,11 @@ class App extends Component {
                 <div className={"create-level-toggle " + (this.state.browse_level ? "browse" : '')} onClick={this.toggleBrowseLevel}>
                       {!this.state.browse_level ? "Browse Levels" : "Back"}
                    </div>
-                <LevelCreationForm updatePoints={this.updatePoints} create_points={this.state.create_points} updateLevelProperties={this.updateLevelProperties} submitToCreateLevel={this.submitToCreateLevel} show_form={this.state.create_level} outOfTime={this.outOfTime} /> 
-                    <form onSubmit={this.setLevel}>
+                <LevelCreationForm updatePoints={this.updatePoints} create_points={this.state.create_points} updateLevelProperties={this.updateLevelProperties} submitToCreateLevel={this.submitToCreateLevel} show_form={this.state.create_level} outOfTime={this.outOfTime} numberOfPuzzles={this.state.puzzles.length + 1}/> 
+                    {/* <form onSubmit={this.setLevel}>
                         <input name="selectedPuzzleId" onChange={this.updateLevelProperties} placeholder="Select level here"></input>
                         <input type="submit" value="Load Level"></input>
-                    </form>
+                    </form> */}
                 <CommentsContainer comments={this.state.comments} updateComments={this.updateComments}/>
             </div>
         );
