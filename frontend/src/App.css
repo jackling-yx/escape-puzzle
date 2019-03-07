@@ -63,3 +63,33 @@
 input {
     border-radius: 25px;
 }
+
+.levelcreated-popup-container {
+    position: absolute;
+    height: auto;
+    width: 200px;
+    border-radius: 10px;
+    /* transform: translate(0%, 200%); */
+    transition: 0.3s;
+    background-color: rgb(0, 0, 0, 0.9)
+}
+
+.levelcreated-popup {
+    position: fixed;
+    border-style: solid;
+    border-color: grey;
+    border-radius: 10px;
+    border-width: 2px;
+    z-index: 10;
+    color: white;
+    cursor: default;
+    box-shadow: 0px 0px 20px rgba(255,255,255,0.7);
+    align-content: center;
+    .levelcreation-form.show {
+    transform: translate(-50%,50%);
+}
+}
+
+.levelcreated-text {
+
+}

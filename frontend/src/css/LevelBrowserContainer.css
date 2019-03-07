@@ -9,10 +9,16 @@
    width: 1280px;
    border-radius: 25px;
    box-shadow: 0px 0px 20px rgba(255,255,255,0.5);
-   background-color: rgba(0, 0, 0, 0.3);
+   background-color: rgba(0, 0, 0, 0.5);
    background-size: 100%;
    overflow: scroll;
    transition: 0.3s;
+}
+
+.levelbrowser-container:after {
+    content: '';
+    display: block;
+    flex: auto;
 }
 
 .levelbrowser-container:hover{

@@ -39,7 +39,7 @@ class LevelCreation extends Component {
         return (
             <form className={"levelcreation-form " + (this.props.show_form ? "show" : '')} onSubmit={this.props.submitToCreateLevel} autocomplete='off'>
                 <div className="puzzle-props">
-                    <input required type='text' className="create-puzzle-props" name='create_puzzle_image' placeholder="Image url here" onChange={this.props.updateLevelProperties} title="Enter your image URL here" autocomplete='off' value={this.props.state.create_puzzle_image}></input>
+                    <input required type='text' className="create-puzzle-props" name='create_puzzle_image' placeholder="Image url here" onChange={this.props.updateLevelProperties} title="Enter your image URL here" autocomplete='off' value={this.props.state.create_puzzle_image} pattern='(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)'></input>
                     <input required type='text' className="create-puzzle-props" name='create_answer' placeholder="Enter your answer here" onChange={this.props.updateLevelProperties} title="Enter your answer here" autocomplete='off' value={this.props.state.create_answer}></input>
                     <input required type='text' className="create-puzzle-props" name='creator_name' placeholder="Enter your name here" onChange={this.props.updateLevelProperties} title="Enter your name here" autocomplete='off' value={this.props.state.creator_name}></input>
                     <input required type='text' className="create-puzzle-props" name='create_difficulty' placeholder="Enter your level name here" onChange={this.props.updateLevelProperties} title="Enter your level name here" autocomplete='off' value={this.props.state.create_difficulty}></input>

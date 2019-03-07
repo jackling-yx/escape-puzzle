@@ -11,7 +11,7 @@ import FailedLevelContainer from './components/FailedLevelContainer';
 import LevelBrowserContainer from './components/LevelBrowserContainer'
 
 const API = 'http://localhost:3000'
-
+const imgURLRegExp = /(http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|gif|png|svg))/
 
 
 class App extends Component {
@@ -138,7 +138,7 @@ class App extends Component {
     }
 
     addToPointsArray = (MouseEvent) => {
-        if (this.state.create_puzzle_image) {
+        if (imgURLRegExp.test(this.state.create_puzzle_image)) {
             let array = this.getPuzzleWindowCoordinates(MouseEvent)
             array.push('')
             const current_array = [...this.state.create_points]
@@ -303,10 +303,11 @@ class App extends Component {
                       {!this.state.browse_level ? "Browse" : "Back"}
                    </div>
                 <LevelCreationForm updatePoints={this.updatePoints} create_points={this.state.create_points} updateLevelProperties={this.updateLevelProperties} submitToCreateLevel={this.submitToCreateLevel} show_form={this.state.create_level} outOfTime={this.outOfTime} numberOfPuzzles={this.state.puzzles.length + 1} state={this.state}/> 
-                    {/* <form onSubmit={this.setLevel}>
-                        <input name="selectedPuzzleId" onChange={this.updateLevelProperties} placeholder="Select level here"></input>
-                        <input type="submit" value="Load Level"></input>
-                    </form> */}
+                   {/* <div className='levelcreated-popup-container'>
+                        <div className='levelcreated-popup'>
+                            <p className='levelcreated-text'>Level created!</p>
+                        </div>
+                   </div> */}
                 <CommentsContainer comments={this.state.comments} updateComments={this.updateComments}/>
             </div>
         );
