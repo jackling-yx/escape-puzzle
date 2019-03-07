@@ -181,17 +181,38 @@ class App extends Component {
         }
         const hasPasscode = payload.create_points.map(point => {
             if (point[2]){
-                return point[2].includes('passcode')
+                return point[2].toString().includes('passcode')
             } else {
                 console.log('defies physics')
             }
         }).includes(true)
+
+        // const yRange = payload.create_points.map(point => {
+        //     if (point[1]) {
+        //         return (point[1] >= 0 && 720 >= point[1])
+        //     }
+        //     else { console.log('fail') }
+        // }).includes(false)
+
+        // const xRange = payload.create_points.map(point => {
+        //     if (point[0]) {
+        //         return (point[0] >= 0 && 1280 >= point[0])
+        //     }
+        //     else { console.log('fail') }
+        // }).includes(false)
+
+        debugger
+
         if (!hasPasscode) {
             alert('You have not included passcode ')
-        } else {
-
-
-            
+        } 
+        // else if (xRange) {
+        //     alert('You have some coordinates that are out of bounds in the x axis')
+        // }
+        // else if (yRange) {
+        //     alert('You have some coordinates that are out of bounds in the y axis')
+        // }
+        else {
                  await fetch(API + '/puzzles', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
