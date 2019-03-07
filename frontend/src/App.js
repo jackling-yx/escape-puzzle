@@ -175,32 +175,43 @@ class App extends Component {
             answer: this.state.create_answer,
             creator: this.state.creator_name
         }
-        console.log(payload)
-        debugger
-        
-             await fetch(API + '/puzzles', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).then(resp => resp.json())
-                .then(data =>
-                    puzzlesCopy.push(data.puzzles))
-            this.setState({
-                create_points: [],
-                create_puzzle_image: "",
-                create_difficulty: "",
-                create_answer: "",
-                creator_name: "",
-                puzzles: puzzlesCopy,
-                create_level: false,
-                browse_level: true
-            })
+        const hasPasscode = payload.create_points.map(point => {
+            if (point[2]){
+                return point[2].includes('passcode')
+            } else {
+                console.log('defies physics')
+            }
+        }).includes(true)
+        if (!hasPasscode) {
+            alert('nah mate')
+        } else {
+
+
+            
+                 await fetch(API + '/puzzles', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).then(resp => resp.json())
+                    .then(data =>
+                        puzzlesCopy.push(data.puzzles))
+                this.setState({
+                    create_points: [],
+                    create_puzzle_image: "",
+                    create_difficulty: "",
+                    create_answer: "",
+                    creator_name: "",
+                    puzzles: puzzlesCopy,
+                    create_level: false,
+                    browse_level: true
+                })
+        }
     }
     
-    // includesPasscode = (points) => {
-    //     const hasPasscode = points.map(point => point[2].includes('passcode')).includes(true)
-    //     return hasPasscode
-    // }
+    includesPasscode = (points) => {
+        const hasPasscode = points.map(point => point[2].includes('passcode')).includes(true)
+        return hasPasscode
+    }
 
     /* Browse level */
     toggleBrowseLevel = () => {
