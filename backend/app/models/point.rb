@@ -18,13 +18,13 @@ class Point < ApplicationRecord
 
             # top_left = [top_left_x, top_left_y]
 
-            top_right_x = coords[0] + 15
-            top_right_y = coords[1] + 15
+            top_right_x = coords[0] + 30
+            top_right_y = coords[1] + 30
 
             top_right = [top_right_x, top_right_y]
 
-            bottom_left_x = coords[0] - 15
-            bottom_left_y = coords[1] - 15
+            bottom_left_x = coords[0] - 30
+            bottom_left_y = coords[1] - 30
 
             bottom_left = [bottom_left_x, bottom_left_y]
 

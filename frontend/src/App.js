@@ -187,7 +187,7 @@ class App extends Component {
             }
         }).includes(true)
         if (!hasPasscode) {
-            alert('nah mate')
+            alert('You have not included passcode ')
         } else {
 
 
@@ -210,6 +210,12 @@ class App extends Component {
                     browse_level: true
                 })
         }
+    }
+
+    latestID = () => {
+        const puzzleArrayLength = this.state.puzzles.length
+        const latestPuzzle = this.state.puzzles[puzzleArrayLength - 1].id
+        return latestPuzzle
     }
     
     includesPasscode = (points) => {
@@ -304,11 +310,11 @@ class App extends Component {
                     <div className={"create-level-toggle " + (this.state.create_level ? "create" : '')} onClick={this.toggleCreateLevel}>
                         {!this.state.create_level ? "Create Level" : "Cancel"}
                     </div>
-                <div className={"create-level-toggle " + (this.state.browse_level ? "browse" : '')} onClick={this.toggleBrowseLevel}>
-                      {!this.state.browse_level ? "Browse" : "Back"}
-                   </div>
+                    <div className={"create-level-toggle " + (this.state.browse_level ? "browse" : '')} onClick={this.toggleBrowseLevel}>
+                        {!this.state.browse_level ? "Browse" : "Back"}
+                    </div>
                 </div>
-                <LevelCreationForm updatePoints={this.updatePoints} create_points={this.state.create_points} updateLevelProperties={this.updateLevelProperties} submitToCreateLevel={this.submitToCreateLevel} show_form={this.state.create_level} outOfTime={this.outOfTime} numberOfPuzzles={this.state.puzzles.length + 1} state={this.state}/> 
+                <LevelCreationForm updatePoints={this.updatePoints} create_points={this.state.create_points} updateLevelProperties={this.updateLevelProperties} submitToCreateLevel={this.submitToCreateLevel} show_form={this.state.create_level} outOfTime={this.outOfTime} numberOfPuzzles={this.state.puzzles} state={this.state} puzzles={this.state.puzzles}/> 
                   
                 <CommentsContainer comments={this.state.comments} updateComments={this.updateComments}/>
             </div>

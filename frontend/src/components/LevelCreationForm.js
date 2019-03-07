@@ -36,6 +36,7 @@ class LevelCreation extends Component {
     }
     
     render(){
+        const {puzzles} = this.props
         return (
             <form className={"levelcreation-form " + (this.props.show_form ? "show" : '')} onSubmit={this.props.submitToCreateLevel} autocomplete='off'>
                 <div className="puzzle-props">
@@ -45,13 +46,12 @@ class LevelCreation extends Component {
                     <input required type='text' className="create-puzzle-props" name='create_difficulty' placeholder="Enter your level name here" onChange={this.props.updateLevelProperties} title="Enter your level name here" autocomplete='off' value={this.props.state.create_difficulty}></input>
                 </div>
                 
-
-                <h5>Your level ID is: {this.props.numberOfPuzzles}</h5>
+                {puzzles[0] && <h5>Your level ID is: {puzzles[puzzles.length - 1].id + 1}</h5>}
                 {this.props.create_points.map((point, i) => <label className={`point-${i}`}>
                     <label>x:</label>
-                    <input required placeholder="x coordinate" name="x" className={"x"} value={point[0]} onChange={this.onChangeHandler} autocomplete='off'></input>
+                    <input required placeholder="x coordinate" name="x" className={"x"} value={point[0]} onChange={this.onChangeHandler} autocomplete='off' pattern="[0-9]+"></input>
                     <label>y:</label>
-                    <input required placeholder="y coordinate" name="y" className={"y"} value={point[1]} onChange={this.onChangeHandler} autocomplete='off'></input>
+                    <input required placeholder="y coordinate" name="y" className={"y"} value={point[1]} onChange={this.onChangeHandler} autocomplete='off' pattern="[0-9]+"></input>
                     <input required type="text" placeholder="Dialogue" name="text" className={"text"} value={point[2]} onChange={this.onChangeHandler} autocomplete='off'></input>
                 </label>
                 )}
