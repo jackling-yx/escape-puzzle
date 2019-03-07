@@ -296,18 +296,16 @@ class App extends Component {
                         <FailedLevelContainer selectedPuzzleImage={this.state.selectedPuzzle.image_url} selectedPuzzle={this.state.selectedPuzzle} toggleSolutionFound={this.toggleSolutionFound} timeLeft={this.state.time_left} convertToTime={this.convertToTime} setLevelThroughBrowser={this.setLevelThroughBrowser}/> :  
                         <PuzzleContainer isMouseWithinPoint={this.isMouseWithinPoint} puzzles={this.state.puzzles} selectedPuzzle={this.state.selectedPuzzle} getPuzzleWindowCoordinates={this.getPuzzleWindowCoordinates} toggleSolutionFound={this.toggleSolutionFound} timeLeft={this.state.time_left} convertToTime={this.convertToTime}/>
                 }
+                <div className="toggle-button-container">
                     <div className={"create-level-toggle " + (this.state.create_level ? "create" : '')} onClick={this.toggleCreateLevel}>
                         {!this.state.create_level ? "Create Level" : "Cancel"}
                     </div>
                 <div className={"create-level-toggle " + (this.state.browse_level ? "browse" : '')} onClick={this.toggleBrowseLevel}>
                       {!this.state.browse_level ? "Browse" : "Back"}
                    </div>
+                </div>
                 <LevelCreationForm updatePoints={this.updatePoints} create_points={this.state.create_points} updateLevelProperties={this.updateLevelProperties} submitToCreateLevel={this.submitToCreateLevel} show_form={this.state.create_level} outOfTime={this.outOfTime} numberOfPuzzles={this.state.puzzles.length + 1} state={this.state}/> 
-                   {/* <div className='levelcreated-popup-container'>
-                        <div className='levelcreated-popup'>
-                            <p className='levelcreated-text'>Level created!</p>
-                        </div>
-                   </div> */}
+                  
                 <CommentsContainer comments={this.state.comments} updateComments={this.updateComments}/>
             </div>
         );
