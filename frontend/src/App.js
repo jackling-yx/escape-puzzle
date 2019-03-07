@@ -127,6 +127,10 @@ class App extends Component {
                 create_level: !this.state.create_level,
                 browse_level: false,
                 create_points: [],
+                create_puzzle_image: "",
+                create_difficulty: "",
+                create_answer: "",
+                creator_name: "",
                 // count: setInterval(this.outOfTime, 1000)
             })
         else {
