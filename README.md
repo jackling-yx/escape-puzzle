@@ -23,3 +23,9 @@ This repo contains both the frontend code and the backend.
 - Users may choose to reset the level creation by pressing cancel.
 - Press submit to create the level and be taken to the level browser.
 - Enjoy!
+
+
+------------
+Developer Notes:
+- To get this up and running, please cd into the escape-puzzle/frontend and run `npm install && npm start` 
+- Open another terminal and cd into escape-puzzle/backend  and run `bundle install && rails s`
