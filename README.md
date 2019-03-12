@@ -1,5 +1,5 @@
 ![alt text](https://github.com/Lingy94/escape-puzzle/blob/master/frontend/public/EscapE.png "Escape Logo")
-
+----------------
 Escape was an individual project for the finale of the Flatiron School Software Engineering Bootcamp.
 This point and click escape room game is written in React.js for the frontend and Ruby on Rails for the backend.
 
