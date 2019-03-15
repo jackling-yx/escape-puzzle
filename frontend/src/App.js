@@ -181,7 +181,7 @@ class App extends Component {
         }
         const hasPasscode = payload.create_points.map(point => {
             if (point[2]){
-                return point[2].toString().includes('passcode')
+                return point[2].toString().toLowerCase().includes('passcode')
             } else {
                 console.log('defies physics')
             }
