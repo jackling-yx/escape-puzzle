@@ -7,6 +7,8 @@ This repo contains both the frontend code and the backend.
 
 ## Gameplay
 
+[Video Demo](https://www.youtube.com/watch?v=a3_3CedKXoA)
+
 - Users are loaded into the level as soon as they visit the web page. They will have 5 minutes to escape!
 - Users must click around the level to find clues that will lead them to the solution.
 - Once they have either solved the level, or their time has ran out, they can choose to browse and play other user created levels, or create one for themselves!
